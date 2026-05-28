@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIR AI Ecosystem — TESOL & ELT Training</title>
+<meta name="description" content="A modular AI-powered educational operating system for English Language Teaching and IELTS preparation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dim: #8A6E2F;
+  --gold-faint: rgba(201,168,76,0.12);
+  --black: #0A0A0A;
+  --black2: #111111;
+  --black3: #161616;
+  --black4: #1E1E1E;
+  --white: #F5F2EB;
+  --white-60: rgba(245,242,235,0.6);
+  --white-30: rgba(245,242,235,0.3);
+  --white-15: rgba(245,242,235,0.15);
+  --white-08: rgba(245,242,235,0.08);
+  --border: rgba(201,168,76,0.15);
+  --border-hover: rgba(201,168,76,0.4);
+  --ff-display: 'Cormorant Garamond', Georgia, serif;
+  --ff-body: 'DM Sans', system-ui, sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--ff-body);
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: var(--ff-body); }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+
+/* ─── NAV ─── */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 60px;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid var(--border);
+  transition: all 0.3s;
+}
+.nav-logo {
+  font-family: var(--ff-display);
+  font-size: 20px; font-weight: 600;
+  color: var(--gold); letter-spacing: 0.06em;
+}
+.nav-logo span {
+  font-family: var(--ff-body); font-weight: 300;
+  font-size: 11px; color: var(--white-30);
+  letter-spacing: 0.18em; margin-left: 10px;
+  vertical-align: middle; text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-link {
+  font-size: 11px; letter-spacing: 0.16em;
+  color: var(--white-60); background: none; border: none;
+  text-transform: uppercase; transition: color 0.2s; padding: 4px 0;
+  position: relative;
+}
+.nav-link::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 0.5px; background: var(--gold); transform: scaleX(0);
+  transition: transform 0.2s;
+}
+.nav-link:hover, .nav-link.active { color: var(--gold); }
+.nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+.nav-cta {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); background: none;
+  border: 0.5px solid var(--gold-dim);
+  padding: 8px 20px; transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--gold-faint); border-color: var(--gold); }
+.nav-hamburger { display: none; background: none; border: none; color: var(--gold); font-size: 22px; }
+
+/* ─── SCREENS ─── */
+.screen { display: none; padding-top: 60px; min-height: 100vh; }
+.screen.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+
+/* ─── HOME HERO ─── */
+.hero {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 96px 24px 72px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 10px; letter-spacing: 0.32em;
+  color: var(--gold-dim); text-transform: uppercase;
+  margin-bottom: 28px;
+  border: 0.5px solid rgba(201,168,76,0.2);
+  padding: 6px 18px; display: inline-block;
+}
+.hero-title {
+  font-family: var(--ff-display);
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 500; line-height: 1.08;
+  color: var(--white); margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+.hero-title .gold { color: var(--gold); }
+.hero-sub {
+  font-size: 14px; line-height: 1.9;
+  color: var(--white-60); max-width: 480px;
+  margin-bottom: 48px; letter-spacing: 0.03em;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.btn-primary {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--black); background: var(--gold); border: none;
+  padding: 14px 36px; font-weight: 500; transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-secondary {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); background: none;
+  border: 0.5px solid var(--gold-dim);
+  padding: 14px 36px; transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--gold); background: var(--gold-faint); }
+
+/* ─── STATS STRIP ─── */
+.stats-strip {
+  display: flex; border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  margin: 0 40px;
+}
+.stat-item {
+  flex: 1; padding: 28px 0; text-align: center;
+  border-right: 0.5px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--ff-display); font-size: 40px; font-weight: 500;
+  color: var(--gold); line-height: 1;
+}
+.stat-label {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--white-30); margin-top: 6px;
+}
+
+/* ─── ARCHITECTURE PREVIEW ─── */
+.section { padding: 72px 40px; }
+.section-eyebrow {
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--ff-display); font-size: clamp(32px, 4vw, 48px);
+  font-weight: 500; color: var(--white); margin-bottom: 48px;
+  line-height: 1.2;
+}
+.section-title .gold { color: var(--gold); }
+
+/* ─── AGENT GRID ─── */
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px; background: var(--border);
+  border: 0.5px solid var(--border);
+}
+.agent-card {
+  background: var(--black2); padding: 28px 24px;
+  cursor: pointer; transition: background 0.2s;
+  position: relative; overflow: hidden;
+}
+.agent-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.25s;
+}
+.agent-card:hover { background: var(--black3); }
+.agent-card:hover::before { opacity: 1; }
+.card-tier {
+  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 12px;
+}
+.card-name {
+  font-family: var(--ff-display); font-size: 32px; font-weight: 600;
+  color: var(--gold); line-height: 1; margin-bottom: 6px;
+}
+.card-role {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--white-30); margin-bottom: 16px;
+}
+.card-desc { font-size: 13px; color: rgba(245,242,235,0.45); line-height: 1.75; }
+.card-arrow {
+  position: absolute; bottom: 20px; right: 20px;
+  font-size: 18px; color: var(--gold-dim); opacity: 0;
+  transition: all 0.2s; transform: translateX(-4px);
+}
+.agent-card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+
+/* ─── MAP SCREEN ─── */
+.map-header {
+  padding: 40px 40px 24px;
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.map-title { font-family: var(--ff-display); font-size: 40px; font-weight: 500; }
+.map-title span { color: var(--gold); }
+.map-hint { font-size: 11px; color: var(--white-30); letter-spacing: 0.1em; }
+.map-body { padding: 32px 40px; }
+.map-svg-wrap {
+  background: var(--black2); border: 0.5px solid var(--border);
+  padding: 40px 20px; position: relative; overflow: hidden;
+}
+.map-svg-wrap::before {
+  content: ''; position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%); width: 500px; height: 200px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.map-stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1px; background: var(--border);
+  border: 0.5px solid var(--border); margin-top: 16px;
+}
+.map-stat { background: var(--black2); padding: 20px 24px; }
+.map-stat-n {
+  font-family: var(--ff-display); font-size: 32px;
+  color: var(--gold); line-height: 1;
+}
+.map-stat-l {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--white-30); margin-top: 4px;
+}
+
+/* ─── DIAGNOSTIC ─── */
+.diag-outer { max-width: 580px; margin: 0 auto; padding: 56px 24px; }
+.diag-progress { display: flex; gap: 6px; margin-bottom: 36px; }
+.diag-dot { height: 1.5px; flex: 1; background: var(--black4); transition: background 0.35s; }
+.diag-dot.done { background: var(--gold); }
+.diag-dot.active { background: var(--gold-dim); }
+.diag-step { display: none; animation: fadeIn 0.3s ease; }
+.diag-step.active { display: block; }
+.diag-eyebrow {
+  font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 14px;
+}
+.diag-q {
+  font-family: var(--ff-display); font-size: clamp(28px, 4vw, 38px);
+  font-weight: 500; color: var(--white); line-height: 1.25; margin-bottom: 36px;
+}
+.diag-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.diag-opt {
+  border: 0.5px solid var(--border); background: var(--black2);
+  padding: 18px 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  transition: all 0.18s;
+}
+.diag-opt:hover { border-color: var(--gold-dim); background: var(--black3); }
+.diag-opt.selected { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+.opt-text .opt-label { font-size: 14px; color: var(--white); letter-spacing: 0.03em; }
+.opt-text .opt-sub { font-size: 11px; color: var(--white-30); margin-top: 3px; }
+.opt-check {
+  width: 20px; height: 20px; flex-shrink: 0;
+  border: 0.5px solid var(--gold-dim);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.18s; font-size: 11px; color: transparent;
+}
+.diag-opt.selected .opt-check { background: var(--gold); border-color: var(--gold); color: var(--black); font-weight: 600; }
+
+/* ─── RESULT ─── */
+.result-card {
+  background: var(--black2); border: 0.5px solid var(--border);
+  padding: 32px 28px; margin-bottom: 20px; position: relative; overflow: hidden;
+}
+.result-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+}
+.result-agent { font-family: var(--ff-display); font-size: 56px; font-weight: 600; color: var(--gold); line-height: 1; }
+.result-role { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-30); margin: 8px 0 16px; }
+.result-reason { font-size: 13px; color: var(--white-60); line-height: 1.85; }
+.result-path { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.path-tag {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold-dim); border: 0.5px solid rgba(201,168,76,0.2);
+  padding: 5px 14px;
+}
+
+/* ─── AGENT PAGE ─── */
+.agent-header {
+  padding: 40px 40px 32px; border-bottom: 0.5px solid var(--border);
+  background: var(--black2); position: relative; overflow: hidden;
+}
+.agent-header::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim) 50%, transparent);
+}
+.agent-page-name {
+  font-family: var(--ff-display); font-size: clamp(48px, 8vw, 72px);
+  font-weight: 600; color: var(--gold); line-height: 1; margin-bottom: 8px;
+}
+.agent-page-mission {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-30);
+}
+.agent-page-desc { font-size: 13px; color: var(--white-60); line-height: 1.85; margin-top: 14px; max-width: 540px; }
+.agent-body { padding: 36px 40px; max-width: 760px; }
+.input-label {
+  font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 10px;
+}
+.agent-textarea {
+  width: 100%; background: var(--black2); border: 0.5px solid var(--border);
+  color: var(--white); font-family: var(--ff-body); font-size: 14px; font-weight: 300;
+  line-height: 1.75; padding: 18px 20px; resize: vertical; min-height: 130px;
+  outline: none; transition: border-color 0.2s;
+}
+.agent-textarea:focus { border-color: var(--gold-dim); }
+.agent-textarea::placeholder { color: rgba(245,242,235,0.18); }
+.run-row { display: flex; gap: 12px; margin-top: 14px; align-items: center; flex-wrap: wrap; }
+.run-btn {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--black); background: var(--gold); border: none;
+  padding: 12px 28px; font-weight: 500; transition: all 0.2s;
+}
+.run-btn:hover { background: var(--gold-light); }
+.run-hint { font-size: 11px; color: var(--white-30); letter-spacing: 0.06em; }
+.output-panel {
+  margin-top: 28px; border: 0.5px solid var(--border);
+  background: var(--black2); display: none;
+}
+.output-panel.visible { display: block; animation: fadeIn 0.3s ease; }
+.output-tag {
+  padding: 12px 20px; border-bottom: 0.5px solid var(--border);
+  font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--gold-dim); display: flex; align-items: center; gap: 10px;
+}
+.output-tag::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+.output-content { padding: 20px 20px 24px; font-size: 14px; line-height: 1.9; color: var(--white-60); }
+.cursor-blink {
+  display: inline-block; width: 1.5px; height: 14px;
+  background: var(--gold-dim); vertical-align: middle; margin-left: 1px;
+  animation: blink 1s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+
+.agent-footer {
+  padding: 18px 40px; border-top: 0.5px solid var(--border);
+  background: var(--black2); display: flex; align-items: center;
+  justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+.footer-link {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--white-30); background: none; border: none; transition: color 0.2s;
+}
+.footer-link:hover { color: var(--gold); }
+.switch-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.switch-btn {
+  font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold-dim); background: none;
+  border: 0.5px solid rgba(201,168,76,0.18);
+  padding: 6px 14px; transition: all 0.18s;
+}
+.switch-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+/* ─── FOOTER ─── */
+#page-footer {
+  border-top: 0.5px solid var(--border); padding: 32px 40px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.footer-brand { font-family: var(--ff-display); font-size: 18px; color: var(--gold-dim); }
+.footer-copy { font-size: 11px; color: var(--white-30); letter-spacing: 0.1em; }
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  #nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: block; }
+  .nav-cta { display: none; }
+  .stats-strip { margin: 0; flex-wrap: wrap; }
+  .stat-item { min-width: 50%; border-right: none; border-bottom: 0.5px solid var(--border); }
+  .section { padding: 48px 20px; }
+  .map-header { padding: 28px 20px 18px; }
+  .map-body { padding: 20px; }
+  .map-stats { grid-template-columns: repeat(2,1fr); }
+  .agent-header { padding: 28px 20px; }
+  .agent-body { padding: 24px 20px; }
+  .agent-footer { padding: 16px 20px; }
+  #page-footer { padding: 24px 20px; }
+  .diag-outer { padding: 36px 20px; }
+}
+
+/* ─── MOBILE NAV OPEN ─── */
+.mobile-nav {
+  display: none; position: fixed; top: 60px; left: 0; right: 0;
+  background: rgba(10,10,10,0.98); border-bottom: 0.5px solid var(--border);
+  padding: 20px; flex-direction: column; gap: 16px; z-index: 99;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav .nav-link { font-size: 13px; padding: 8px 0; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">NIR AI <span>Ecosystem</span></div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="goScreen('home')">Home</button>
+    <button class="nav-link" onclick="goScreen('map')">Ecosystem</button>
+    <button class="nav-link" onclick="goScreen('diag')">Diagnostic</button>
+    <button class="nav-link" onclick="goScreen('agents')">Agents</button>
+  </div>
+  <button class="nav-cta" onclick="goScreen('diag')">Begin Diagnostic →</button>
+  <button class="nav-hamburger" onclick="toggleMobileNav()">☰</button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav">
+  <button class="nav-link" onclick="goScreen('home');toggleMobileNav()">Home</button>
+  <button class="nav-link" onclick="goScreen('map');toggleMobileNav()">Ecosystem</button>
+  <button class="nav-link" onclick="goScreen('diag');toggleMobileNav()">Diagnostic</button>
+  <button class="nav-link" onclick="goScreen('agents');toggleMobileNav()">Agents</button>
+</div>
+
+<!-- ═══ HOME ═══ -->
+<div id="screen-home" class="screen active">
+  <div class="hero">
+    <div class="hero-eyebrow">NIR Academy · TESOL &amp; ELT Intelligence</div>
+    <h1 class="hero-title">
+      Intelligence<br><span class="gold">Engineered</span><br>for Language
+    </h1>
+    <p class="hero-sub">
+      A modular AI educational operating system. Eight specialized agents. One central orchestration engine. Built for ELT practitioners and IELTS learners.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="goScreen('diag')">Begin Diagnostic</button>
+      <button class="btn-secondary" onclick="goScreen('map')">Explore Ecosystem</button>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">AI Agents</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Intelligence Layers</div></div>
+    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Core Skills</div></div>
+    <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Unified System</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-eyebrow">System Architecture</div>
+    <div class="section-title">The <span class="gold">Neural</span> Network</div>
+
+    <div style="background:var(--black2);border:0.5px solid var(--border);padding:40px 20px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:500px;height:180px;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.06) 0%,transparent 70%);pointer-events:none"></div>
+      <svg width="100%" viewBox="0 0 680 300" role="img">
+        <title>NIR AI Ecosystem Architecture Diagram</title>
+        <defs>
+          <marker id="arrd" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#8A6E2F" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+        </defs>
+        <!-- Grid -->
+        <line x1="0" y1="90" x2="680" y2="90" stroke="rgba(201,168,76,0.04)" stroke-width="1"/>
+        <line x1="0" y1="180" x2="680" y2="180" stroke="rgba(201,168,76,0.04)" stroke-width="1"/>
+        <line x1="0" y1="270" x2="680" y2="270" stroke="rgba(201,168,76,0.04)" stroke-width="1"/>
+        <!-- Tier labels -->
+        <text x="14" y="52" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(201,168,76,0.28)" letter-spacing="0.18em">TIER 0</text>
+        <text x="14" y="142" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(201,168,76,0.18)" letter-spacing="0.18em">TIER 1</text>
+        <text x="14" y="238" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(201,168,76,0.12)" letter-spacing="0.18em">TIER 2</text>
+        <!-- Lines T0→T1 -->
+        <line x1="340" y1="78" x2="200" y2="128" stroke="#8A6E2F" stroke-width="0.8" marker-end="url(#arrd)" opacity="0.9"/>
+        <line x1="340" y1="78" x2="480" y2="128" stroke="#8A6E2F" stroke-width="0.8" marker-end="url(#arrd)" opacity="0.9"/>
+        <!-- Lines NIRA→T2 -->
+        <line x1="200" y1="158" x2="80" y2="218" stroke="#5A4A1F" stroke-width="0.6" marker-end="url(#arrd)" opacity="0.8"/>
+        <line x1="200" y1="158" x2="200" y2="218" stroke="#5A4A1F" stroke-width="0.6" marker-end="url(#arrd)" opacity="0.8"/>
+        <line x1="200" y1="158" x2="320" y2="218" stroke="#5A4A1F" stroke-width="0.6" marker-end="url(#arrd)" opacity="0.8"/>
+        <!-- Lines NIRON→T2 -->
+        <line x1="480" y1="158" x2="360" y2="218" stroke="#5A4A1F" stroke-width="0.6" marker-end="url(#arrd)" opacity="0.8"/>
+        <line x1="480" y1="158" x2="480" y2="218" stroke="#5A4A1F" stroke-width="0.6" marker-end="url(#arrd)" opacity="0.8"/>
+        <line x1="480" y1="158" x2="600" y2="218" stroke="#5A4A1F" stroke-width="0.6" marker-end="url(#arrd)" opacity="0.8"/>
+        <!-- NIR AI -->
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRAI')">
+          <rect x="272" y="22" width="136" height="56" rx="2" fill="#0D0D0D" stroke="#C9A84C" stroke-width="1"/>
+          <rect x="272" y="22" width="136" height="2" fill="#C9A84C" opacity="0.5"/>
+          <text x="340" y="46" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="20" font-weight="600" fill="#C9A84C">NIR AI</text>
+          <text x="340" y="65" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8.5" fill="#8A6E2F" letter-spacing="0.16em">CENTRAL ORCHESTRATION</text>
+        </g>
+        <!-- NIRA -->
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRA')">
+          <rect x="134" y="128" width="132" height="50" rx="2" fill="#0F0F0F" stroke="#8A6E2F" stroke-width="0.7"/>
+          <text x="200" y="149" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="17" font-weight="600" fill="#C9A84C">NIRA</text>
+          <text x="200" y="167" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#8A6E2F" letter-spacing="0.12em">TEACHING SYSTEM</text>
+        </g>
+        <!-- NIRON -->
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRON')">
+          <rect x="414" y="128" width="132" height="50" rx="2" fill="#0F0F0F" stroke="#8A6E2F" stroke-width="0.7"/>
+          <text x="480" y="149" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="17" font-weight="600" fill="#C9A84C">NIRON</text>
+          <text x="480" y="167" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#8A6E2F" letter-spacing="0.12em">LANGUAGE SYSTEM</text>
+        </g>
+        <!-- T2 agents -->
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRVE')">
+          <rect x="30" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/>
+          <text x="80" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRVE</text>
+          <text x="80" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">WRITING</text>
+          <text x="80" y="265" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(245,242,235,0.18)">Composition</text>
+        </g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRVO')">
+          <rect x="150" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/>
+          <text x="200" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRVO</text>
+          <text x="200" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">SPEAKING</text>
+          <text x="200" y="265" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(245,242,235,0.18)">Fluency</text>
+        </g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRIX')">
+          <rect x="270" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/>
+          <text x="320" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRIX</text>
+          <text x="320" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">READING</text>
+          <text x="320" y="265" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(245,242,235,0.18)">Comprehension</text>
+        </g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRAL')">
+          <rect x="310" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/>
+          <text x="360" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRAL</text>
+          <text x="360" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">LISTENING</text>
+          <text x="360" y="265" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(245,242,235,0.18)">Audio</text>
+        </g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRIEL')">
+          <rect x="430" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/>
+          <text x="480" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRIEL</text>
+          <text x="480" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">IELTS</text>
+          <text x="480" y="265" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(245,242,235,0.18)">Preparation</text>
+        </g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIREV')">
+          <rect x="550" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/>
+          <text x="600" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIREV</text>
+          <text x="600" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">EVALUATION</text>
+          <text x="600" y="265" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(245,242,235,0.18)">Assessment</text>
+        </g>
+        <text x="340" y="292" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8.5" fill="rgba(245,242,235,0.18)" letter-spacing="0.16em">CLICK ANY NODE TO ENTER AGENT</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- AGENT CARDS -->
+  <div class="section" style="padding-top:0">
+    <div class="section-eyebrow">Agent Directory</div>
+    <div class="section-title">Specialized <span class="gold">Intelligence</span></div>
+    <div class="agent-grid">
+      <div class="agent-card" onclick="goScreen('agent','NIRA')">
+        <div class="card-tier">Core · Tier 1</div>
+        <div class="card-name">NIRA</div>
+        <div class="card-role">Pedagogical Guidance</div>
+        <div class="card-desc">Teaching methodology, lesson architecture, and curriculum design for ELT practitioners.</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="agent-card" onclick="goScreen('agent','NIRON')">
+        <div class="card-tier">Core · Tier 1</div>
+        <div class="card-name">NIRON</div>
+        <div class="card-role">Grammar Intelligence</div>
+        <div class="card-desc">Deep linguistic analysis. Grammar patterns, vocabulary scaffolding, and register analysis.</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="agent-card" onclick="goScreen('agent','NIRVE')">
+        <div class="card-tier">Specialist · Tier 2</div>
+        <div class="card-name">NIRVE</div>
+        <div class="card-role">Writing & Composition</div>
+        <div class="card-desc">Academic writing, essay structure, coherence analysis, and IELTS Task 1 &amp; 2 feedback.</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="agent-card" onclick="goScreen('agent','NIRVO')">
+        <div class="card-tier">Specialist · Tier 2</div>
+        <div class="card-name">NIRVO</div>
+        <div class="card-role">Speaking & Fluency</div>
+        <div class="card-desc">Pronunciation modeling, discourse fluency, and spoken English performance coaching.</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="agent-card" onclick="goScreen('agent','NIRIX')">
+        <div class="card-tier">Specialist · Tier 2</div>
+        <div class="card-name">NIRIX</div>
+        <div class="card-role">Reading & Comprehension</div>
+        <div class="card-desc">Inference, skimming, scanning, and critical reading across academic text types.</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="agent-card" onclick="goScreen('agent','NIRAL')">
+        <div class="card-tier">Specialist · Tier 2</div>
+        <div class="card-name">NIRAL</div>
+        <div class="card-role">Listening & Audio</div>
+        <div class="card-desc">Audio comprehension scaffolding, note-taking strategies, and listening skill development.</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="agent-card" onclick="goScreen('agent','NIRIEL')">
+        <div class="card-tier">Specialist · Tier 2</div>
+        <div class="card-name">NIRIEL</div>
+        <div class="card-role">IELTS Preparation</div>
+        <div class="card-desc">Band-targeted strategies, mock tasks, and performance analysis across all four skills.</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="agent-card" onclick="goScreen('agent','NIREV')">
+        <div class="card-tier">Specialist · Tier 2</div>
+        <div class="card-name">NIREV</div>
+        <div class="card-role">Assessment & Evaluation</div>
+        <div class="card-desc">Rubric-based scoring, CEFR benchmarking, and learner proficiency progress tracking.</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="page-footer">
+    <div class="footer-brand">NIR AI</div>
+    <div class="footer-copy">© 2025 NIR Academy · TESOL & ELT Training</div>
+  </footer>
+</div>
+
+<!-- ═══ ECOSYSTEM MAP ═══ -->
+<div id="screen-map" class="screen">
+  <div class="map-header">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.26em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:8px">Full System View</div>
+      <div class="map-title">Ecosystem <span>Map</span></div>
+    </div>
+    <div class="map-hint">Click any node to open agent interface</div>
+  </div>
+  <div class="map-body">
+    <div class="map-svg-wrap">
+      <svg width="100%" viewBox="0 0 680 320" role="img">
+        <title>NIR AI Full Ecosystem Map</title>
+        <defs>
+          <marker id="arrm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#8A6E2F" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+        </defs>
+        <line x1="0" y1="90" x2="680" y2="90" stroke="rgba(201,168,76,0.04)" stroke-width="1"/>
+        <line x1="0" y1="180" x2="680" y2="180" stroke="rgba(201,168,76,0.04)" stroke-width="1"/>
+        <line x1="0" y1="270" x2="680" y2="270" stroke="rgba(201,168,76,0.04)" stroke-width="1"/>
+        <text x="14" y="52" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(201,168,76,0.28)" letter-spacing="0.18em">TIER 0 · ORCHESTRATION</text>
+        <text x="14" y="142" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(201,168,76,0.18)" letter-spacing="0.18em">TIER 1 · CORE AGENTS</text>
+        <text x="14" y="238" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(201,168,76,0.12)" letter-spacing="0.18em">TIER 2 · SPECIALISTS</text>
+        <line x1="340" y1="78" x2="200" y2="128" stroke="#8A6E2F" stroke-width="0.9" marker-end="url(#arrm)" opacity="0.9"/>
+        <line x1="340" y1="78" x2="480" y2="128" stroke="#8A6E2F" stroke-width="0.9" marker-end="url(#arrm)" opacity="0.9"/>
+        <line x1="200" y1="158" x2="80" y2="218" stroke="#5A4A1F" stroke-width="0.7" marker-end="url(#arrm)" opacity="0.8"/>
+        <line x1="200" y1="158" x2="200" y2="218" stroke="#5A4A1F" stroke-width="0.7" marker-end="url(#arrm)" opacity="0.8"/>
+        <line x1="200" y1="158" x2="320" y2="218" stroke="#5A4A1F" stroke-width="0.7" marker-end="url(#arrm)" opacity="0.8"/>
+        <line x1="480" y1="158" x2="360" y2="218" stroke="#5A4A1F" stroke-width="0.7" marker-end="url(#arrm)" opacity="0.8"/>
+        <line x1="480" y1="158" x2="480" y2="218" stroke="#5A4A1F" stroke-width="0.7" marker-end="url(#arrm)" opacity="0.8"/>
+        <line x1="480" y1="158" x2="600" y2="218" stroke="#5A4A1F" stroke-width="0.7" marker-end="url(#arrm)" opacity="0.8"/>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRAI')">
+          <rect x="272" y="22" width="136" height="56" rx="2" fill="#0D0D0D" stroke="#C9A84C" stroke-width="1.2"/>
+          <rect x="272" y="22" width="136" height="2" fill="#C9A84C" opacity="0.6"/>
+          <text x="340" y="46" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="20" font-weight="600" fill="#C9A84C">NIR AI</text>
+          <text x="340" y="65" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8.5" fill="#8A6E2F" letter-spacing="0.16em">CENTRAL ORCHESTRATION</text>
+        </g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRA')">
+          <rect x="134" y="128" width="132" height="50" rx="2" fill="#0F0F0F" stroke="#8A6E2F" stroke-width="0.7"/>
+          <text x="200" y="149" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="17" font-weight="600" fill="#C9A84C">NIRA</text>
+          <text x="200" y="167" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#8A6E2F" letter-spacing="0.12em">TEACHING SYSTEM</text>
+        </g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRON')">
+          <rect x="414" y="128" width="132" height="50" rx="2" fill="#0F0F0F" stroke="#8A6E2F" stroke-width="0.7"/>
+          <text x="480" y="149" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="17" font-weight="600" fill="#C9A84C">NIRON</text>
+          <text x="480" y="167" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#8A6E2F" letter-spacing="0.12em">LANGUAGE SYSTEM</text>
+        </g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRVE')"><rect x="30" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/><text x="80" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRVE</text><text x="80" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">WRITING</text></g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRVO')"><rect x="150" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/><text x="200" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRVO</text><text x="200" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">SPEAKING</text></g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRIX')"><rect x="270" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/><text x="320" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRIX</text><text x="320" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">READING</text></g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRAL')"><rect x="360" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/><text x="410" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRAL</text><text x="410" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">LISTENING</text></g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIRIEL')"><rect x="430" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/><text x="480" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIRIEL</text><text x="480" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">IELTS</text></g>
+        <g style="cursor:pointer" onclick="goScreen('agent','NIREV')"><rect x="550" y="218" width="100" height="52" rx="2" fill="#0C0C0C" stroke="#4A3A18" stroke-width="0.5"/><text x="600" y="238" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" fill="#C9A84C">NIREV</text><text x="600" y="254" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="#6B5525" letter-spacing="0.1em">EVALUATION</text></g>
+        <text x="340" y="294" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8.5" fill="rgba(245,242,235,0.16)" letter-spacing="0.16em">CLICK ANY NODE TO ENTER AGENT</text>
+      </svg>
+    </div>
+    <div class="map-stats">
+      <div class="map-stat"><div class="map-stat-n">8</div><div class="map-stat-l">Total Agents</div></div>
+      <div class="map-stat"><div class="map-stat-n">3</div><div class="map-stat-l">Intelligence Tiers</div></div>
+      <div class="map-stat"><div class="map-stat-n">4</div><div class="map-stat-l">Core Skills</div></div>
+      <div class="map-stat"><div class="map-stat-n">ELT</div><div class="map-stat-l">Framework</div></div>
+    </div>
+  </div>
+  <footer id="page-footer" style="margin-top:40px">
+    <div class="footer-brand">NIR AI</div>
+    <div class="footer-copy">© 2025 NIR Academy · TESOL & ELT Training</div>
+  </footer>
+</div>
+
+<!-- ═══ DIAGNOSTIC ═══ -->
+<div id="screen-diag" class="screen">
+  <div class="diag-outer">
+    <div id="ds1" class="diag-step active">
+      <div class="diag-progress"><div class="diag-dot active"></div><div class="diag-dot"></div><div class="diag-dot"></div><div class="diag-dot"></div></div>
+      <div class="diag-eyebrow">Step 1 of 4 · Learning Goal</div>
+      <div class="diag-q">What is your primary objective?</div>
+      <div class="diag-options">
+        <div class="diag-opt" onclick="selectOpt(this,1)"><div class="opt-text"><div class="opt-label">IELTS Preparation</div><div class="opt-sub">Target band score improvement</div></div><div class="opt-check">✓</div></div>
+        <div class="diag-opt" onclick="selectOpt(this,1)"><div class="opt-text"><div class="opt-label">Academic English</div><div class="opt-sub">University writing &amp; research skills</div></div><div class="opt-check">✓</div></div>
+        <div class="diag-opt" onclick="selectOpt(this,1)"><div class="opt-text"><div class="opt-label">Professional ELT</div><div class="opt-sub">Teaching methodology &amp; certification</div></div><div class="opt-check">✓</div></div>
+        <div class="diag-opt" onclick="selectOpt(this,1)"><div class="opt-text"><div class="opt-label">General English</div><div class="opt-sub">Communicative competence development</div></div><div class="opt-check">✓</div></div>
+      </div>
+      <button class="btn-primary" onclick="nextStep(2)" style="width:100%">Continue →</button>
+    </div>
+
+    <div id="ds2" class="diag-step">
+      <div class="diag-progress"><div class="diag-dot done"></div><div class="diag-dot active"></div><div class="diag-dot"></div><div class="diag-dot"></div></div>
+      <div class="diag-eyebrow">Step 2 of 4 · Current Level</div>
+      <div class="diag-q">How would you assess your current proficiency?</div>
+      <div class="diag-options">
+        <div class="diag-opt" onclick="selectOpt(this,2)"><div class="opt-text"><div class="opt-label">Foundation · A1–A2</div><div class="opt-sub">Basic communication, limited vocabulary</div></div><div class="opt-check">✓</div></div>
+        <div class="diag-opt" onclick="selectOpt(this,2)"><div class="opt-text"><div class="opt-label">Intermediate · B1–B2</div><div class="opt-sub">Independent user, expanding fluency</div></div><div class="opt-check">✓</div></div>
+        <div class="diag-opt" onclick="selectOpt(this,2)"><div class="opt-text"><div class="opt-label">Advanced · C1–C2</div><div class="opt-sub">Proficient, near-native competence</div></div><div class="opt-check">✓</div></div>
+      </div>
+      <button class="btn-primary" onclick="nextStep(3)" style="width:100%">Continue →</button>
+    </div>
+
+    <div id="ds3" class="diag-step">
+      <div class="diag-progress"><div class="diag-dot done"></div><div class="diag-dot done"></div><div class="diag-dot active"></div><div class="diag-dot"></div></div>
+      <div class="diag-eyebrow">Step 3 of 4 · Skill Priority</div>
+      <div class="diag-q">Which skill requires focused attention?</div>
+      <div class="diag-options">
+        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Writing</div><div class="opt-sub">Essays, task responses, academic writing</div></div><div class="opt-check">✓</div></div>
+        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Speaking</div><div class="opt-sub">Pronunciation, fluency, discourse</div></div><div class="opt-check">✓</div></div>
+        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Reading</div><div class="opt-sub">Comprehension, speed, inference</div></div><div class="opt-check">✓</div></div>
+        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Listening</div><div class="opt-sub">Audio comprehension, note-taking</div></div><div class="opt-check">✓</div></div>
+        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Grammar &amp; Vocabulary</div><div class="opt-sub">Accuracy, lexical range, register</div></div><div class="opt-check">✓</div></div>
+      </div>
+      <button class="btn-primary" onclick="nextStep(4)" style="width:100%">Continue →</button>
+    </div>
+
+    <div id="ds4" class="diag-step">
+      <div class="diag-progress"><div class="diag-dot done"></div><div class="diag-dot done"></div><div class="diag-dot done"></div><div class="diag-dot active"></div></div>
+      <div class="diag-eyebrow">Step 4 of 4 · Optional Sample</div>
+      <div class="diag-q">Provide a writing or goal sample <span style="color:var(--white-30);font-size:24px;font-family:var(--ff-display)">(optional)</span></div>
+      <textarea class="agent-textarea" id="diag-sample" placeholder="e.g. I need to reach IELTS Band 7. My main weakness is task coherence and complex sentence structures..." style="margin-bottom:20px"></textarea>
+      <button class="btn-primary" onclick="showResult()" style="width:100%">Generate Learning Path →</button>
+    </div>
+
+    <div id="ds-result" class="diag-step">
+      <div style="font-size:10px;letter-spacing:0.26em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:28px">Diagnostic Complete · Routing Active</div>
+      <div class="result-card">
+        <div style="font-size:9px;letter-spacing:0.22em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:14px">Recommended Primary Agent</div>
+        <div class="result-agent">NIRIEL</div>
+        <div class="result-role">IELTS Preparation System</div>
+        <div class="result-reason">Based on your diagnostic profile, NIRIEL is optimally configured for your objectives. It combines task-specific strategy with structured performance modelling and targeted feedback loops for band-score improvement.</div>
+        <div class="result-path">
+          <div class="path-tag">NIRIEL → Primary</div>
+          <div class="path-tag">NIRVE → Writing</div>
+          <div class="path-tag">NIREV → Evaluation</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn-primary" onclick="goScreen('agent','NIRIEL')" style="flex:1;min-width:180px">Enter NIRIEL →</button>
+        <button class="btn-secondary" onclick="goScreen('map')" style="flex:1;min-width:180px">View Ecosystem</button>
+      </div>
+      <div style="margin-top:20px">
+        <button onclick="resetDiag()" style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--white-30);background:none;border:none;cursor:pointer;font-family:var(--ff-body)">← Restart Diagnostic</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AGENTS LIST ═══ -->
+<div id="screen-agents" class="screen">
+  <div class="section">
+    <div class="section-eyebrow">All Agents</div>
+    <div class="section-title">The <span class="gold">Complete</span> Directory</div>
+    <div class="agent-grid">
+      <div class="agent-card" onclick="goScreen('agent','NIRAI')"><div class="card-tier">Core · Tier 0</div><div class="card-name">NIR AI</div><div class="card-role">Central Orchestration</div><div class="card-desc">Routes input across the ecosystem. Performs diagnosis, dynamic agent assignment, and system-level control.</div><div class="card-arrow">→</div></div>
+      <div class="agent-card" onclick="goScreen('agent','NIRA')"><div class="card-tier">Core · Tier 1</div><div class="card-name">NIRA</div><div class="card-role">Teaching System</div><div class="card-desc">Teaching methodology, lesson architecture, and curriculum design for ELT practitioners.</div><div class="card-arrow">→</div></div>
+      <div class="agent-card" onclick="goScreen('agent','NIRON')"><div class="card-tier">Core · Tier 1</div><div class="card-name">NIRON</div><div class="card-role">Grammar Intelligence</div><div class="card-desc">Deep linguistic analysis. Grammar patterns, vocabulary scaffolding, and register analysis.</div><div class="card-arrow">→</div></div>
+      <div class="agent-card" onclick="goScreen('agent','NIRVE')"><div class="card-tier">Specialist · Tier 2</div><div class="card-name">NIRVE</div><div class="card-role">Writing & Composition</div><div class="card-desc">Academic writing, essay structure, coherence mapping, and IELTS task feedback.</div><div class="card-arrow">→</div></div>
+      <div class="agent-card" onclick="goScreen('agent','NIRVO')"><div class="card-tier">Specialist · Tier 2</div><div class="card-name">NIRVO</div><div class="card-role">Speaking & Fluency</div><div class="card-desc">Pronunciation, discourse fluency, and spoken English performance coaching.</div><div class="card-arrow">→</div></div>
+      <div class="agent-card" onclick="goScreen('agent','NIRIX')"><div class="card-tier">Specialist · Tier 2</div><div class="card-name">NIRIX</div><div class="card-role">Reading & Comprehension</div><div class="card-desc">Inference, skimming, scanning, and critical reading across academic text types.</div><div class="card-arrow">→</div></div>
+      <div class="agent-card" onclick="goScreen('agent','NIRAL')"><div class="card-tier">Specialist · Tier 2</div><div class="card-name">NIRAL</div><div class="card-role">Listening & Audio</div><div class="card-desc">Audio comprehension scaffolding, note-taking strategies, and listening development.</div><div class="card-arrow">→</div></div>
+      <div class="agent-card" onclick="goScreen('agent','NIRIEL')"><div class="card-tier">Specialist · Tier 2</div><div class="card-name">NIRIEL</div><div class="card-role">IELTS Preparation</div><div class="card-desc">Band-targeted strategies, mock tasks, and performance analysis for all four skills.</div><div class="card-arrow">→</div></div>
+      <div class="agent-card" onclick="goScreen('agent','NIREV')"><div class="card-tier">Specialist · Tier 2</div><div class="card-name">NIREV</div><div class="card-role">Assessment & Evaluation</div><div class="card-desc">Rubric-based scoring, CEFR benchmarking, and learner proficiency tracking.</div><div class="card-arrow">→</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AGENT PAGE ═══ -->
+<div id="screen-agent" class="screen">
+  <div class="agent-header">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div id="ap-name" class="agent-page-name">NIRIEL</div>
+        <div id="ap-mission" class="agent-page-mission">IELTS Preparation System</div>
+      </div>
+      <div id="ap-tier" style="font-size:9px;letter-spacing:0.2em;color:var(--gold-dim);border:0.5px solid rgba(201,168,76,0.2);padding:6px 14px;text-transform:uppercase;margin-top:6px">Specialist · Tier 2</div>
+    </div>
+    <div id="ap-desc" class="agent-page-desc">Band-targeted preparation across all four IELTS skills.</div>
+  </div>
+
+  <div class="agent-body">
+    <div class="input-label">Submit Input to Agent</div>
+    <textarea id="ap-input" class="agent-textarea" placeholder="Paste your text, describe a learning challenge, or ask a focused question..."></textarea>
+    <div class="run-row">
+      <button class="run-btn" onclick="runAgent()">Process →</button>
+      <div class="run-hint">Structured AI output will appear below</div>
+    </div>
+    <div id="ap-output" class="output-panel">
+      <div class="output-tag">Agent Output</div>
+      <div id="ap-output-content" class="output-content"></div>
+    </div>
+  </div>
+
+  <div class="agent-footer">
+    <button class="footer-link" onclick="goScreen('map')">← Ecosystem Map</button>
+    <div class="switch-row">
+      <button class="switch-btn" onclick="goScreen('agent','NIRVE')">NIRVE</button>
+      <button class="switch-btn" onclick="goScreen('agent','NIRVO')">NIRVO</button>
+      <button class="switch-btn" onclick="goScreen('agent','NIRIX')">NIRIX</button>
+      <button class="switch-btn" onclick="goScreen('agent','NIRIEL')">NIRIEL</button>
+      <button class="switch-btn" onclick="goScreen('agent','NIREV')">NIREV</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const AGENTS = {
+  NIRAI:  { name:'NIR AI', mission:'Central Orchestration Engine', tier:'Core · Tier 0', desc:'Routes user input across the ecosystem. Performs diagnostic analysis, system-level control, and dynamic agent assignment based on learner profile.', ph:'Describe your learning goal for full system routing and agent recommendation...' },
+  NIRA:   { name:'NIRA', mission:'Teaching & Pedagogical Guidance', tier:'Core · Tier 1', desc:'Pedagogical intelligence for ELT practitioners. Lesson design, methodology scaffolding, curriculum alignment, and teacher development.', ph:'Ask about a teaching strategy, lesson design challenge, or pedagogical approach...' },
+  NIRON:  { name:'NIRON', mission:'Grammar & Vocabulary Intelligence', tier:'Core · Tier 1', desc:'Deep linguistic analysis engine. Grammar pattern recognition, vocabulary scaffolding, lexical density analysis, and register evaluation.', ph:'Submit a sentence, paragraph, or grammar question for detailed analysis...' },
+  NIRVE:  { name:'NIRVE', mission:'Writing & Composition System', tier:'Specialist · Tier 2', desc:'Academic writing intelligence. Task 1 and Task 2 analysis, essay structure evaluation, coherence mapping, and lexical sophistication feedback.', ph:'Paste your essay or writing task here for structured feedback and band estimate...' },
+  NIRVO:  { name:'NIRVO', mission:'Speaking & Fluency System', tier:'Specialist · Tier 2', desc:'Spoken English coaching and pronunciation modeling. Discourse fluency patterns, prosodic analysis, and spoken grammar evaluation.', ph:'Describe your speaking challenge or paste a spoken transcript for analysis...' },
+  NIRIX:  { name:'NIRIX', mission:'Reading & Comprehension System', tier:'Specialist · Tier 2', desc:'Reading intelligence for inference, skimming, scanning, and critical analysis across academic text types and IELTS reading passages.', ph:'Paste a reading passage or describe a comprehension challenge...' },
+  NIRAL:  { name:'NIRAL', mission:'Listening & Audio Comprehension', tier:'Specialist · Tier 2', desc:'Audio comprehension scaffolding, note-taking strategy development, and listening skill improvement across all IELTS section types.', ph:'Describe a listening challenge or paste a audio transcript for analysis...' },
+  NIRIEL: { name:'NIRIEL', mission:'IELTS Preparation System', tier:'Specialist · Tier 2', desc:'Band-targeted preparation across all four IELTS skills. Structured feedback, mock task generation, and performance benchmarking against official descriptors.', ph:'Paste your writing task, describe your target band, or ask for a mock question...' },
+  NIREV:  { name:'NIREV', mission:'Assessment & Evaluation Engine', tier:'Specialist · Tier 2', desc:'Rubric-based scoring, proficiency benchmarking, and progress analytics. Evaluates output against standardised CEFR and IELTS band descriptors.', ph:'Paste learner output for rubric-based evaluation and CEFR/IELTS band estimate...' }
+};
+
+const OUTPUTS = {
+  NIRAI:  'NIR AI analysis complete. Diagnostic profile created. Routing recommendation: NIRIEL (primary) → NIRVE (writing module) → NIREV (evaluation). Learning path initialised across 3 specialist agents. System confidence: high.',
+  NIRA:   'Pedagogical analysis complete. Recommended approach: communicative task-based instruction with scaffolded output stages. Suggested framework: PPP → TBL hybrid model. Key methodology notes generated. Lesson template available.',
+  NIRON:  'Linguistic analysis complete. Grammar patterns identified: 3 recurring structures. Lexical density: 0.42 (moderate). Register: semi-formal with inconsistencies. Recommended focus areas: subordinate clause variation, cohesive device range, collocational precision.',
+  NIRVE:  'Writing evaluation complete. Task response: adequate. Coherence & Cohesion: logical sequencing present, transitional devices limited. Lexical Resource: B2-level range with occasional C1 items. Grammatical accuracy: 78%. Estimated band: 6.5. Improvement pathway generated.',
+  NIRVO:  'Speaking profile assessed. Fluency indicators: hesitation patterns at clause boundaries. Pronunciation: intelligible with minor L1 transfer features. Discourse management: structured but formulaic. Recommended focus: paraphrasing strategies and topic extension techniques.',
+  NIRIX:  'Reading task processed. Comprehension depth: inferential level reached. Skimming accuracy: high. Scanning precision: moderate. Key weakness detected in identifying implicit main ideas and distinguishing writer opinion from fact. Targeted exercise set prepared.',
+  NIRAL:  'Listening analysis complete. Note-taking density: below optimal. Keyword capture rate: 62%. Recommended strategy: parallel processing with structured grid templates. IELTS Section 3 and 4 require focused practice. Scaffolded listening modules prepared.',
+  NIRIEL: 'IELTS diagnostic complete. Projected band profile — Writing: 6.5 / Speaking: 6.0 / Reading: 7.0 / Listening: 6.5. Overall estimated band: 6.5. Band 7 gap analysis complete: 3 targeted modules recommended. Mock Task 2 question generated for immediate practice.',
+  NIREV:  'Evaluation report complete. CEFR level confirmed: B2. IELTS band equivalent: 6.0–6.5. Rubric scores — Task Achievement: 6 / Coherence & Cohesion: 6 / Lexical Resource: 6.5 / Grammatical Range & Accuracy: 6. Progress tracking initiated. Next benchmark assessment scheduled.'
+};
+
+let currentAgent = 'NIRIEL';
+let typingInterval = null;
+
+function goScreen(screen, agentId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+  if (screen === 'agent' && agentId) {
+    currentAgent = agentId;
+    const a = AGENTS[agentId];
+    if (a) {
+      document.getElementById('ap-name').textContent = a.name;
+      document.getElementById('ap-mission').textContent = a.mission;
+      document.getElementById('ap-tier').textContent = a.tier;
+      document.getElementById('ap-desc').textContent = a.desc;
+      document.getElementById('ap-input').placeholder = a.ph;
+      document.getElementById('ap-input').value = '';
+      const op = document.getElementById('ap-output');
+      op.classList.remove('visible');
+      if (typingInterval) clearInterval(typingInterval);
+    }
+    document.getElementById('screen-agent').classList.add('active');
+  } else {
+    const el = document.getElementById('screen-' + screen);
+    if (el) el.classList.add('active');
+    const link = document.querySelector(`.nav-link[onclick*="'${screen}'"]`);
+    if (link) link.classList.add('active');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleMobileNav() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+
+function selectOpt(el, step) {
+  el.closest('.diag-options').querySelectorAll('.diag-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function nextStep(n) {
+  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('ds' + n);
+  if (el) el.classList.add('active');
+}
+
+function showResult() {
+  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('ds-result').classList.add('active');
+}
+
+function resetDiag() {
+  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.diag-opt').forEach(o => o.classList.remove('selected'));
+  document.getElementById('ds1').classList.add('active');
+}
+
+function runAgent() {
+  const op = document.getElementById('ap-output');
+  const oc = document.getElementById('ap-output-content');
+  op.classList.add('visible');
+  oc.innerHTML = '';
+  if (typingInterval) clearInterval(typingInterval);
+
+  const text = OUTPUTS[currentAgent] || 'Processing complete. Output ready.';
+  let i = 0;
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-blink';
+  oc.appendChild(cursor);
+
+  typingInterval = setInterval(() => {
+    if (i < text.length) {
+      cursor.insertAdjacentText('beforebegin', text[i]);
+      i++;
+    } else {
+      cursor.remove();
+      clearInterval(typingInterval);
+    }
+  }, 16);
+}
+
+// Init active nav
+document.querySelector('.nav-link[onclick*="home"]').classList.add('active');
+</script>
+</body>
+</html>
