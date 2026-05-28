@@ -4,28 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NIR AI Ecosystem — TESOL & ELT Training</title>
-<meta name="description" content="A modular AI-powered educational operating system for English Language Teaching and IELTS preparation.">
+<meta name="description" content="NIR Academy | AI-Powered ELT Professional Development. Next Generation Instructional Resources. Pedagogy First. AI Enhanced. Future Ready.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --gold: #C9A84C;
-  --gold-light: #E8C97A;
-  --gold-dim: #8A6E2F;
-  --gold-faint: rgba(201,168,76,0.12);
-  --black: #0A0A0A;
-  --black2: #111111;
-  --black3: #161616;
-  --black4: #1E1E1E;
-  --white: #F5F2EB;
-  --white-60: rgba(245,242,235,0.6);
-  --white-30: rgba(245,242,235,0.3);
-  --white-15: rgba(245,242,235,0.15);
-  --white-08: rgba(245,242,235,0.08);
-  --border: rgba(201,168,76,0.15);
-  --border-hover: rgba(201,168,76,0.4);
+  --gold: #D4A843;
+  --gold-light: #F0C85A;
+  --gold-dim: #9A7232;
+  --gold-faint: rgba(212,168,67,0.14);
+  --gold-bright: #F2C94C;
+  --black: #070709;
+  --black2: #0E0E12;
+  --black3: #141418;
+  --black4: #1C1C22;
+  --white: #F7F4ED;
+  --white-60: rgba(247,244,237,0.65);
+  --white-30: rgba(247,244,237,0.35);
+  --white-15: rgba(247,244,237,0.15);
+  --white-08: rgba(247,244,237,0.08);
+  --border: rgba(212,168,67,0.18);
+  --border-hover: rgba(212,168,67,0.5);
   --ff-display: 'Cormorant Garamond', Georgia, serif;
   --ff-body: 'DM Sans', system-ui, sans-serif;
 }
@@ -531,6 +532,154 @@ body::before {
   .agent-char-img { width: 140px; height: 170px; }
   .agent-header-inner { gap: 20px; }
 }
+
+/* ─── TAGLINE BANNER ─── */
+.tagline-banner {
+  background: linear-gradient(90deg, transparent, rgba(212,168,67,0.06) 30%, rgba(212,168,67,0.06) 70%, transparent);
+  border-top: 0.5px solid rgba(212,168,67,0.12);
+  border-bottom: 0.5px solid rgba(212,168,67,0.12);
+  padding: 14px 40px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 40px; flex-wrap: wrap;
+}
+.tagline-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(247,244,237,0.5);
+}
+.tagline-item svg { color: var(--gold); opacity: 0.7; flex-shrink: 0; }
+.tagline-sep { width: 3px; height: 3px; border-radius: 50%; background: rgba(212,168,67,0.3); }
+
+/* ─── SOCIAL LINKS BAR ─── */
+.social-bar {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; flex-wrap: wrap; padding: 28px 40px;
+  border-top: 0.5px solid var(--border);
+}
+.social-link {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(247,244,237,0.4); text-decoration: none;
+  border: 0.5px solid rgba(212,168,67,0.12);
+  padding: 9px 18px; transition: all 0.22s;
+  background: transparent; position: relative; overflow: hidden;
+}
+.social-link::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(212,168,67,0.05); opacity: 0; transition: opacity 0.22s;
+}
+.social-link:hover { color: var(--gold); border-color: rgba(212,168,67,0.4); }
+.social-link:hover::before { opacity: 1; }
+.social-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* ─── SITE FOOTER ─── */
+.site-footer {
+  background: var(--black2);
+  border-top: 0.5px solid var(--border);
+  padding: 48px 40px 32px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px; margin-bottom: 40px;
+}
+.footer-col-title {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px; opacity: 0.8;
+}
+.footer-col-item {
+  font-size: 13px; color: rgba(247,244,237,0.4);
+  margin-bottom: 10px; line-height: 1.7; cursor: pointer;
+  transition: color 0.18s;
+}
+.footer-col-item:hover { color: var(--gold); }
+.footer-col-item a { color: inherit; text-decoration: none; }
+.footer-bottom {
+  border-top: 0.5px solid rgba(212,168,67,0.1);
+  padding-top: 24px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.footer-brand-lg {
+  font-family: var(--ff-display); font-size: 22px; font-weight: 600;
+  color: var(--gold); letter-spacing: 0.06em;
+}
+.footer-brand-sub {
+  font-size: 11px; color: rgba(247,244,237,0.3); margin-top: 4px;
+  letter-spacing: 0.12em;
+}
+.footer-tagline-text {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(247,244,237,0.25); text-align: right;
+}
+.footer-tagline-text span { display: block; color: rgba(212,168,67,0.5); }
+
+/* ─── MISSION STRIP ─── */
+.mission-strip {
+  padding: 64px 40px;
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.mission-strip::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(212,168,67,0.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+.mission-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1px; background: var(--border);
+}
+.mission-item {
+  background: var(--black2); padding: 32px 24px;
+  position: relative; overflow: hidden;
+}
+.mission-item::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.mission-item:hover::before { opacity: 0.6; }
+.mission-icon {
+  width: 40px; height: 40px; margin-bottom: 18px;
+  display: flex; align-items: center; justify-content: center;
+  border: 0.5px solid rgba(212,168,67,0.2);
+  color: var(--gold);
+}
+.mission-title {
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px; font-weight: 500;
+}
+.mission-desc { font-size: 13px; color: rgba(247,244,237,0.45); line-height: 1.8; }
+
+/* ─── HOVER GLOW on agent cards ─── */
+.agent-card { transition: background 0.22s, box-shadow 0.22s; }
+.agent-card:hover {
+  background: var(--black3);
+  box-shadow: inset 0 0 40px rgba(212,168,67,0.03), 0 0 0 0.5px rgba(212,168,67,0.25);
+}
+
+/* ─── BODY ambient glow upgrade ─── */
+body::before {
+  content:''; position:fixed; top:0; left:0; right:0; bottom:0;
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(212,168,67,0.05) 0%, transparent 45%),
+    radial-gradient(ellipse at 90% 85%, rgba(212,168,67,0.04) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(212,168,67,0.02) 0%, transparent 60%);
+  pointer-events:none; z-index:0;
+}
+
+/* ─── MOBILE RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .mission-grid { grid-template-columns: 1fr 1fr; }
+  .social-bar { gap: 6px; padding: 20px; }
+  .social-link { font-size: 10px; padding: 8px 12px; }
+  .tagline-banner { gap: 20px; padding: 12px 20px; }
+  .mission-strip { padding: 40px 20px; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .mission-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -559,12 +708,13 @@ body::before {
 <!-- ═══ HOME ═══ -->
 <div id="screen-home" class="screen active">
   <div class="hero">
-    <div class="hero-eyebrow">NIR Academy · TESOL &amp; ELT Intelligence</div>
+    <div class="hero-eyebrow">AI in ELT &amp; Teacher Development · NIR Academy</div>
     <h1 class="hero-title">
-      Intelligence<br><span class="gold">Engineered</span><br>for Language
+      Next Generation<br><span class="gold">Instructional</span><br>Resources
     </h1>
     <p class="hero-sub">
-      A modular AI educational operating system. Eight specialized agents. One central orchestration engine. Built for ELT practitioners and IELTS learners.
+      Pedagogy First. AI Enhanced. Future Ready.<br>
+      Eight specialized AI agents. One unified educational operating system for ELT professionals and IELTS learners.
     </p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="goScreen('diag')">Begin Diagnostic</button>
@@ -581,6 +731,29 @@ body::before {
     <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Intelligence Layers</div></div>
     <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Core Skills</div></div>
     <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Unified System</div></div>
+  </div>
+
+  <!-- Tagline Banner -->
+  <div class="tagline-banner">
+    <div class="tagline-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      Pedagogy First
+    </div>
+    <div class="tagline-sep"></div>
+    <div class="tagline-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      AI Enhanced
+    </div>
+    <div class="tagline-sep"></div>
+    <div class="tagline-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Future Ready
+    </div>
+    <div class="tagline-sep"></div>
+    <div class="tagline-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      Academic Excellence
+    </div>
   </div>
 
   <div class="section">
@@ -677,6 +850,45 @@ body::before {
   </div>
 
   <!-- AGENT CARDS -->
+
+  <!-- Mission Strip -->
+  <div class="mission-strip">
+    <div style="text-align:center;margin-bottom:40px">
+      <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;opacity:0.7">Our Foundation</div>
+      <div style="font-family:var(--ff-display);font-size:clamp(28px,4vw,40px);font-weight:500;color:var(--white)">What Sets NIR Apart</div>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-item">
+        <div class="mission-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="mission-title">Pedagogy First</div>
+        <div class="mission-desc">Built on proven teaching principles and learning science. Every AI agent is grounded in established ELT methodology.</div>
+      </div>
+      <div class="mission-item">
+        <div class="mission-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="mission-title">AI Enhanced</div>
+        <div class="mission-desc">Intelligent agents that augment human potential. Designed to support teachers and accelerate learner progress.</div>
+      </div>
+      <div class="mission-item">
+        <div class="mission-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="mission-title">Academic Credibility</div>
+        <div class="mission-desc">Aligned with global standards and best practices. Developed by Dr. Niki Majidi for real educational impact.</div>
+      </div>
+      <div class="mission-item">
+        <div class="mission-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="mission-title">Future Ready</div>
+        <div class="mission-desc">Scalable, adaptable infrastructure designed for the future of English language education globally.</div>
+      </div>
+    </div>
+  </div>
+
   <div class="section" style="padding-top:0">
     <div class="section-eyebrow">Agent Directory</div>
     <div class="section-title">Specialized <span class="gold">Intelligence</span></div>
@@ -740,9 +952,66 @@ body::before {
     </div>
   </div>
 
-  <footer id="page-footer">
-    <div class="footer-brand">NIR AI</div>
-    <div class="footer-copy">© 2025 NIR Academy · TESOL & ELT Training</div>
+
+  <!-- Social Links -->
+  <div class="social-bar">
+    <a class="social-link" href="https://niracademy.com" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      NIR Academy
+    </a>
+    <a class="social-link" href="https://www.youtube.com/@niracademyofficial" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+      YouTube
+    </a>
+    <a class="social-link" href="https://www.instagram.com/niki.niracademy" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      Instagram
+    </a>
+    <a class="social-link" href="https://www.linkedin.com/in/nir-academy-80406b40a/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a class="social-link" href="https://t.me/niracademyofficial" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Telegram
+    </a>
+  </div>
+
+  <!-- Rich Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-col-item" onclick="goScreen('home')">Home</div>
+        <div class="footer-col-item" onclick="goScreen('map')">Ecosystem Map</div>
+        <div class="footer-col-item" onclick="goScreen('diag')">AI Diagnostic</div>
+        <div class="footer-col-item" onclick="goScreen('agents')">All Agents</div>
+      </div>
+      <div>
+        <div class="footer-col-title">AI Agents</div>
+        <div class="footer-col-item" onclick="goScreen('agent','NIRA')">NIRA — Teacher AI</div>
+        <div class="footer-col-item" onclick="goScreen('agent','NIRON')">NIRON — Grammar AI</div>
+        <div class="footer-col-item" onclick="goScreen('agent','NIRIEL')">NIRIEL — IELTS AI</div>
+        <div class="footer-col-item" onclick="goScreen('agent','NIREV')">NIREV — Assessment AI</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-col-item"><a href="https://niracademy.com" target="_blank" rel="noopener">niracademy.com</a></div>
+        <div class="footer-col-item"><a href="https://www.youtube.com/@niracademyofficial" target="_blank" rel="noopener">YouTube Channel</a></div>
+        <div class="footer-col-item"><a href="https://www.instagram.com/niki.niracademy" target="_blank" rel="noopener">Instagram</a></div>
+        <div class="footer-col-item"><a href="https://t.me/niracademyofficial" target="_blank" rel="noopener">Telegram</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand-lg">NIR AI</div>
+        <div class="footer-brand-sub">AI in ELT &amp; Teacher Development</div>
+      </div>
+      <div class="footer-tagline-text">
+        <span>Pedagogy First · AI Enhanced · Future Ready</span>
+        &copy; 2025 NIR Academy · TESOL &amp; ELT Training
+      </div>
+    </div>
   </footer>
 </div>
 
@@ -813,9 +1082,35 @@ body::before {
       <div class="map-stat"><div class="map-stat-n">ELT</div><div class="map-stat-l">Framework</div></div>
     </div>
   </div>
-  <footer id="page-footer" style="margin-top:40px">
-    <div class="footer-brand">NIR AI</div>
-    <div class="footer-copy">© 2025 NIR Academy · TESOL & ELT Training</div>
+
+  <!-- Social Links -->
+  <div class="social-bar">
+    <a class="social-link" href="https://niracademy.com" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      NIR Academy
+    </a>
+    <a class="social-link" href="https://www.youtube.com/@niracademyofficial" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+      YouTube
+    </a>
+    <a class="social-link" href="https://www.instagram.com/niki.niracademy" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      Instagram
+    </a>
+    <a class="social-link" href="https://www.linkedin.com/in/nir-academy-80406b40a/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a class="social-link" href="https://t.me/niracademyofficial" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Telegram
+    </a>
+  </div>
+  <footer class="site-footer" style="margin-top:0">
+    <div class="footer-bottom">
+      <div><div class="footer-brand-lg">NIR AI</div><div class="footer-brand-sub">AI in ELT &amp; Teacher Development</div></div>
+      <div class="footer-tagline-text"><span>Pedagogy First · AI Enhanced · Future Ready</span>&copy; 2025 NIR Academy</div>
+    </div>
   </footer>
 </div>
 
