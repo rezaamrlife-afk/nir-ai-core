@@ -972,56 +972,51 @@ body::before {
 
 <script>
 const AGENTS = {
-  NIRAI:  { name:'NIR AI', mission:'Central Orchestration Engine', tier:'Core · Tier 0', desc:'Routes user input across the ecosystem. Performs diagnostic analysis, system-level control, and dynamic agent assignment based on learner profile.', ph:'Describe your learning goal for full system routing and agent recommendation...' },
-  NIRA:   { name:'NIRA', mission:'Teaching & Pedagogical Guidance', tier:'Core · Tier 1', desc:'Pedagogical intelligence for ELT practitioners. Lesson design, methodology scaffolding, curriculum alignment, and teacher development.', ph:'Ask about a teaching strategy, lesson design challenge, or pedagogical approach...' },
-  NIRON:  { name:'NIRON', mission:'Grammar & Vocabulary Intelligence', tier:'Core · Tier 1', desc:'Deep linguistic analysis engine. Grammar pattern recognition, vocabulary scaffolding, lexical density analysis, and register evaluation.', ph:'Submit a sentence, paragraph, or grammar question for detailed analysis...' },
-  NIRVE:  { name:'NIRVE', mission:'Writing & Composition System', tier:'Specialist · Tier 2', desc:'Academic writing intelligence. Task 1 and Task 2 analysis, essay structure evaluation, coherence mapping, and lexical sophistication feedback.', ph:'Paste your essay or writing task here for structured feedback and band estimate...' },
-  NIRVO:  { name:'NIRVO', mission:'Speaking & Fluency System', tier:'Specialist · Tier 2', desc:'Spoken English coaching and pronunciation modeling. Discourse fluency patterns, prosodic analysis, and spoken grammar evaluation.', ph:'Describe your speaking challenge or paste a spoken transcript for analysis...' },
-  NIRIX:  { name:'NIRIX', mission:'Reading & Comprehension System', tier:'Specialist · Tier 2', desc:'Reading intelligence for inference, skimming, scanning, and critical analysis across academic text types and IELTS reading passages.', ph:'Paste a reading passage or describe a comprehension challenge...' },
-  NIRAL:  { name:'NIRAL', mission:'Listening & Audio Comprehension', tier:'Specialist · Tier 2', desc:'Audio comprehension scaffolding, note-taking strategy development, and listening skill improvement across all IELTS section types.', ph:'Describe a listening challenge or paste a audio transcript for analysis...' },
-  NIRIEL: { name:'NIRIEL', mission:'IELTS Preparation System', tier:'Specialist · Tier 2', desc:'Band-targeted preparation across all four IELTS skills. Structured feedback, mock task generation, and performance benchmarking against official descriptors.', ph:'Paste your writing task, describe your target band, or ask for a mock question...' },
-  NIREV:  { name:'NIREV', mission:'Assessment & Evaluation Engine', tier:'Specialist · Tier 2', desc:'Rubric-based scoring, proficiency benchmarking, and progress analytics. Evaluates output against standardised CEFR and IELTS band descriptors.', ph:'Paste learner output for rubric-based evaluation and CEFR/IELTS band estimate...' }
+  NIRAI:  { name:'NIR AI',  mission:'Central Orchestration Engine',      tier:'Core · Tier 0',       desc:'Routes user input across the ecosystem. Performs diagnostic analysis, system-level control, and dynamic agent assignment based on learner profile.',                                              ph:'Describe your learning goal for full system routing and agent recommendation...' },
+  NIRA:   { name:'NIRA',    mission:'Teacher AI · Pedagogical Guidance',  tier:'Core · Tier 1',       desc:'Pedagogical intelligence for ELT practitioners. Lesson design, methodology scaffolding, curriculum alignment, and teacher development. Not just AI — a complete teaching system.',              ph:'Ask about a teaching strategy, lesson design challenge, or pedagogical approach...' },
+  NIRON:  { name:'NIRON',   mission:'Grammar & Vocabulary AI',            tier:'Core · Tier 1',       desc:'Deep linguistic analysis engine. Grammar pattern recognition, vocabulary scaffolding, lexical density analysis, and register evaluation for stronger English.',                                  ph:'Submit a sentence, paragraph, or grammar question for detailed analysis...' },
+  NIRVE:  { name:'NIRVE',   mission:'Writing Assistant AI',               tier:'Specialist · Tier 2', desc:'Corrects your writing, improves structure and coherence, and provides clear feedback for better expression. Academic writing, essays, and IELTS Task 1 & 2 supported.',                        ph:'Paste your essay or writing task here for structured feedback and band estimate...' },
+  NIRVO:  { name:'NIRVO',   mission:'Speaking Practice AI',               tier:'Specialist · Tier 2', desc:'Improves speaking fluency, pronunciation, and real-life conversation skills through interactive practice. Discourse management and spoken grammar fully supported.',                           ph:'Describe your speaking challenge or paste a spoken transcript for analysis...' },
+  NIRIX:  { name:'NIRIX',   mission:'Reading Assistant AI',               tier:'Specialist · Tier 2', desc:'Enhances reading comprehension, text analysis, and understanding of meaning in context. Skimming, scanning, and critical inference across academic text types.',                               ph:'Paste a reading passage or describe a comprehension challenge...' },
+  NIRAL:  { name:'NIRAL',   mission:'Listening Practice AI',              tier:'Specialist · Tier 2', desc:'Trains listening comprehension using audio-based exercises and real spoken language. Note-taking strategies and all IELTS listening sections fully covered.',                                   ph:'Describe a listening challenge or paste an audio transcript for analysis...' },
+  NIRIEL: { name:'NIRIEL',  mission:'IELTS Preparation AI',               tier:'Specialist · Tier 2', desc:'Provides full IELTS preparation across all four skills. Practice tasks, strategies, and structured training to improve your overall band score from any starting level.',                      ph:'Paste your writing task, describe your target band, or ask for a mock question...' },
+  NIREV:  { name:'NIREV',   mission:'Assessment & Progress Tracking AI',  tier:'Specialist · Tier 2', desc:'Evaluates learner performance, provides feedback and scoring, and tracks progress over time to measure improvement. Rubric-based CEFR and IELTS band benchmarking.',                          ph:'Paste learner output for rubric-based evaluation and CEFR/IELTS band estimate...' }
 };
 
 const OUTPUTS = {
   NIRAI:  'NIR AI analysis complete. Diagnostic profile created. Routing recommendation: NIRIEL (primary) → NIRVE (writing module) → NIREV (evaluation). Learning path initialised across 3 specialist agents. System confidence: high.',
   NIRA:   'Pedagogical analysis complete. Recommended approach: communicative task-based instruction with scaffolded output stages. Suggested framework: PPP → TBL hybrid model. Key methodology notes generated. Lesson template available.',
-  NIRON:  'Linguistic analysis complete. Grammar patterns identified: 3 recurring structures. Lexical density: 0.42 (moderate). Register: semi-formal with inconsistencies. Recommended focus areas: subordinate clause variation, cohesive device range, collocational precision.',
+  NIRON:  'Linguistic analysis complete. Grammar patterns identified: 3 recurring structures. Lexical density: 0.42 (moderate). Register: semi-formal with inconsistencies. Recommended focus: subordinate clause variation, cohesive device range, collocational precision.',
   NIRVE:  'Writing evaluation complete. Task response: adequate. Coherence & Cohesion: logical sequencing present, transitional devices limited. Lexical Resource: B2-level range with occasional C1 items. Grammatical accuracy: 78%. Estimated band: 6.5. Improvement pathway generated.',
   NIRVO:  'Speaking profile assessed. Fluency indicators: hesitation patterns at clause boundaries. Pronunciation: intelligible with minor L1 transfer features. Discourse management: structured but formulaic. Recommended focus: paraphrasing strategies and topic extension techniques.',
-  NIRIX:  'Reading task processed. Comprehension depth: inferential level reached. Skimming accuracy: high. Scanning precision: moderate. Key weakness detected in identifying implicit main ideas and distinguishing writer opinion from fact. Targeted exercise set prepared.',
-  NIRAL:  'Listening analysis complete. Note-taking density: below optimal. Keyword capture rate: 62%. Recommended strategy: parallel processing with structured grid templates. IELTS Section 3 and 4 require focused practice. Scaffolded listening modules prepared.',
-  NIRIEL: 'IELTS diagnostic complete. Projected band profile — Writing: 6.5 / Speaking: 6.0 / Reading: 7.0 / Listening: 6.5. Overall estimated band: 6.5. Band 7 gap analysis complete: 3 targeted modules recommended. Mock Task 2 question generated for immediate practice.',
-  NIREV:  'Evaluation report complete. CEFR level confirmed: B2. IELTS band equivalent: 6.0–6.5. Rubric scores — Task Achievement: 6 / Coherence & Cohesion: 6 / Lexical Resource: 6.5 / Grammatical Range & Accuracy: 6. Progress tracking initiated. Next benchmark assessment scheduled.'
+  NIRIX:  'Reading task processed. Comprehension depth: inferential level reached. Skimming accuracy: high. Scanning precision: moderate. Key weakness: identifying implicit main ideas. Targeted exercise set prepared.',
+  NIRAL:  'Listening analysis complete. Note-taking density: below optimal. Keyword capture rate: 62%. Recommended strategy: parallel processing with structured grid templates. IELTS Section 3 and 4 require focused practice.',
+  NIRIEL: 'IELTS diagnostic complete. Projected band profile — Writing: 6.5 / Speaking: 6.0 / Reading: 7.0 / Listening: 6.5. Overall estimated band: 6.5. Band 7 gap analysis: 3 targeted modules recommended. Mock Task 2 generated.',
+  NIREV:  'Evaluation report complete. CEFR level: B2 confirmed. IELTS band equivalent: 6.0–6.5. Rubric scores — Task Achievement: 6 / Coherence & Cohesion: 6 / Lexical Resource: 6.5 / Grammatical Range & Accuracy: 6. Progress tracking initiated.'
 };
-
-let currentAgent = 'NIRIEL';
-let typingInterval = null;
-let diagAnswers = { role: null, skill: null, level: null };
 
 // ── ROUTING TABLE ──
 const ROUTING = {
-  // role=teacher → always NIRA first
   teacher: {
-    default: { agent:'NIRA', reason:'As an ELT professional, NIRA is your primary intelligence layer. It provides pedagogical guidance, lesson design frameworks, and teaching methodology tailored to professional practice.', support:['NIRON → Grammar Reference','NIREV → Assessment Design'] }
+    default:    { agent:'NIRA',   reason:'As an ELT professional, NIRA is your primary intelligence layer. It provides pedagogical guidance, lesson design frameworks, and teaching methodology tailored to professional practice.',                                  support:['NIRON → Grammar Reference','NIREV → Assessment Design'] },
+    grammar:    { agent:'NIRON',  reason:'NIRON is your Grammar Intelligence engine. It provides deep linguistic analysis, grammar pattern explanations, and vocabulary scaffolding — ideal for teaching grammar accurately and effectively.',                          support:['NIRA → Pedagogical Context','NIREV → Assessment Tools'] },
+    assessment: { agent:'NIREV',  reason:'NIREV is your Assessment & Progress Tracking engine. It builds rubric-based evaluations, tracks learner progress, and benchmarks performance against CEFR and IELTS descriptors.',                                          support:['NIRA → Lesson Planning','NIRON → Grammar Analysis'] }
   },
-  // role=ielts → always NIRIEL first, then skill-specific support
   ielts: {
-    writing:  { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Writing as the priority focus. Task 1 and Task 2 coaching, band-descriptor alignment, and coherence feedback are all integrated.', support:['NIRVE → Writing Practice','NIREV → Score Tracking'] },
-    speaking: { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Speaking as the priority focus. Fluency drills, Part 1/2/3 strategies, and pronunciation coaching are fully structured.', support:['NIRVO → Speaking Practice','NIREV → Score Tracking'] },
-    reading:  { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Reading as the priority focus. Skimming, scanning, and inference strategies are calibrated to your target band.', support:['NIRIX → Reading Practice','NIREV → Score Tracking'] },
-    listening:{ agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Listening as the priority focus. Section-by-section strategy, note-taking, and prediction techniques are all covered.', support:['NIRAL → Listening Practice','NIREV → Score Tracking'] },
-    grammar:  { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Grammar & Vocabulary as the priority focus. Lexical range, accuracy, and register are critical to your band improvement.', support:['NIRON → Grammar Intelligence','NIREV → Score Tracking'] },
-    default:  { agent:'NIRIEL', reason:'NIRIEL is your complete IELTS preparation engine. All four skills — Listening, Reading, Writing, Speaking — are covered with structured band-targeted strategies.', support:['NIRVE → Writing','NIRVO → Speaking','NIREV → Score Tracking'] }
+    writing:    { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Writing as the priority. Task 1 and Task 2 coaching, band-descriptor alignment, and coherence feedback are fully integrated.',       support:['NIRVE → Writing Practice','NIREV → Score Tracking'] },
+    speaking:   { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Speaking as the priority. Fluency drills, Part 1/2/3 strategies, and pronunciation coaching are fully structured.',                  support:['NIRVO → Speaking Practice','NIREV → Score Tracking'] },
+    reading:    { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Reading as the priority. Skimming, scanning, and inference strategies are calibrated to your target band.',                           support:['NIRIX → Reading Practice','NIREV → Score Tracking'] },
+    listening:  { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Listening as the priority. Section-by-section strategy, note-taking, and prediction techniques are all covered.',                    support:['NIRAL → Listening Practice','NIREV → Score Tracking'] },
+    grammar:    { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Grammar & Vocabulary as the priority. Lexical range, accuracy, and register are critical to your band improvement.',                 support:['NIRON → Grammar Intelligence','NIREV → Score Tracking'] },
+    default:    { agent:'NIRIEL', reason:'NIRIEL is your complete IELTS preparation engine. All four skills are covered with structured band-targeted strategies and mock task generation.',                             support:['NIRVE → Writing','NIRVO → Speaking','NIREV → Score Tracking'] }
   },
-  // role=learner → skill maps directly to specialist agent
   learner: {
-    writing:  { agent:'NIRVE', reason:'NIRVE is your Writing Assistant. It corrects your writing, improves structure and coherence, and provides clear feedback for stronger English expression at every level.', support:['NIRON → Grammar Support','NIREV → Progress Tracking'] },
-    speaking: { agent:'NIRVO', reason:'NIRVO is your Speaking Practice agent. It improves fluency, pronunciation, and real-life conversation skills through structured interactive practice.', support:['NIRA → Lesson Guidance','NIREV → Progress Tracking'] },
-    reading:  { agent:'NIRIX', reason:'NIRIX is your Reading Assistant. It enhances comprehension, text analysis, and understanding of meaning in context through targeted exercises.', support:['NIRON → Vocabulary Building','NIREV → Progress Tracking'] },
-    listening:{ agent:'NIRAL', reason:'NIRAL is your Listening Practice agent. It trains listening comprehension using audio-based exercises and real spoken language exposure.', support:['NIRVO → Speaking Connection','NIREV → Progress Tracking'] },
-    grammar:  { agent:'NIRON', reason:'NIRON is your Grammar & Vocabulary Intelligence. It analyses your language patterns, identifies weaknesses, and builds precision in grammar and lexical range.', support:['NIRVE → Writing Application','NIREV → Progress Tracking'] },
-    default:  { agent:'NIRA', reason:'NIRA is your Teacher AI — your intelligent starting point. It analyses your profile and routes you to the most relevant specialist agent for your learning goals.', support:['NIRON → Grammar','NIRVE → Writing','NIREV → Assessment'] }
+    writing:    { agent:'NIRVE',  reason:'NIRVE is your Writing Assistant. It corrects your writing, improves structure and coherence, and provides clear feedback for stronger English expression.',                    support:['NIRON → Grammar Support','NIREV → Progress Tracking'] },
+    speaking:   { agent:'NIRVO',  reason:'NIRVO is your Speaking Practice agent. It improves fluency, pronunciation, and real-life conversation skills through structured interactive practice.',                        support:['NIRA → Lesson Guidance','NIREV → Progress Tracking'] },
+    reading:    { agent:'NIRIX',  reason:'NIRIX is your Reading Assistant. It enhances comprehension, text analysis, and understanding of meaning in context through targeted exercises.',                              support:['NIRON → Vocabulary Building','NIREV → Progress Tracking'] },
+    listening:  { agent:'NIRAL',  reason:'NIRAL is your Listening Practice agent. It trains listening comprehension using audio-based exercises and real spoken language exposure.',                                    support:['NIRVO → Speaking Connection','NIREV → Progress Tracking'] },
+    grammar:    { agent:'NIRON',  reason:'NIRON is your Grammar & Vocabulary AI. It analyses your language patterns, identifies weaknesses, and builds precision in grammar and lexical range.',                        support:['NIRVE → Writing Application','NIREV → Progress Tracking'] },
+    default:    { agent:'NIRA',   reason:'NIRA is your Teacher AI — your intelligent starting point. It analyses your profile and routes you to the most relevant specialist agent.',                                   support:['NIRON → Grammar','NIRVE → Writing','NIREV → Assessment'] }
   }
 };
 
@@ -1031,86 +1026,104 @@ const SKILL_OPTIONS = {
     { val:'speaking',  label:'Speaking',              sub:'Build fluency, pronunciation, and conversation skills' },
     { val:'reading',   label:'Reading',               sub:'Enhance comprehension and text analysis' },
     { val:'listening', label:'Listening',             sub:'Train listening with audio exercises' },
-    { val:'grammar',   label:'Grammar & Vocabulary',  sub:'Build accuracy and lexical range' },
+    { val:'grammar',   label:'Grammar & Vocabulary',  sub:'Build accuracy and lexical range' }
   ],
   ielts: [
     { val:'writing',   label:'IELTS Writing',         sub:'Task 1 & Task 2 strategies and feedback' },
     { val:'speaking',  label:'IELTS Speaking',         sub:'Parts 1, 2 & 3 fluency and pronunciation' },
     { val:'reading',   label:'IELTS Reading',          sub:'Skimming, scanning and inference strategies' },
     { val:'listening', label:'IELTS Listening',        sub:'All 4 sections, note-taking strategies' },
-    { val:'grammar',   label:'Grammar & Vocabulary',   sub:'Lexical range and grammatical accuracy' },
+    { val:'grammar',   label:'Grammar & Vocabulary',   sub:'Lexical range and grammatical accuracy' }
   ],
   teacher: [
-    { val:'pedagogy',  label:'Teaching Methodology',   sub:'Lesson design, frameworks, and best practices' },
-    { val:'grammar',   label:'Grammar Instruction',     sub:'Teaching grammar and vocabulary effectively' },
-    { val:'assessment',label:'Assessment & Testing',    sub:'Creating tests and tracking learner progress' },
+    { val:'pedagogy',   label:'Teaching Methodology',   sub:'Lesson design, frameworks, and best practices' },
+    { val:'grammar',    label:'Grammar Instruction',     sub:'Teaching grammar and vocabulary effectively' },
+    { val:'assessment', label:'Assessment & Testing',    sub:'Creating tests and tracking learner progress' }
   ]
 };
 
+let currentAgent = 'NIRIEL';
+let typingInterval = null;
+let diagAnswers = { role: null, skill: null, level: null };
+
+// ── DIAGNOSTIC FLOW ──
 function diagStep2() {
-  const sel = document.querySelector('#ds1 .diag-opt.selected');
-  if (!sel) { alert('Please select an option to continue.'); return; }
-  diagAnswers.role = sel.dataset.val;
+  var sel = document.querySelector('#ds1 .diag-opt.selected');
+  if (!sel) { showToast('Please select an option to continue.'); return; }
+  diagAnswers.role = sel.getAttribute('data-val');
 
-  // Build skill options dynamically
-  const opts = SKILL_OPTIONS[diagAnswers.role] || SKILL_OPTIONS.learner;
-  const container = document.getElementById('ds2-opts');
-  container.innerHTML = opts.map(o =>
-    \`<div class="diag-opt" data-val="\${o.val}" onclick="selectOpt(this,2)">
-      <div class="opt-text"><div class="opt-label">\${o.label}</div><div class="opt-sub">\${o.sub}</div></div>
-      <div class="opt-check">✓</div>
-    </div>\`
-  ).join('');
-
+  var opts = SKILL_OPTIONS[diagAnswers.role] || SKILL_OPTIONS.learner;
+  var container = document.getElementById('ds2-opts');
+  var html = '';
+  for (var i = 0; i < opts.length; i++) {
+    var o = opts[i];
+    html += '<div class="diag-opt" data-val="' + o.val + '" onclick="selectOpt(this,2)">' +
+            '<div class="opt-text"><div class="opt-label">' + o.label + '</div><div class="opt-sub">' + o.sub + '</div></div>' +
+            '<div class="opt-check">&#10003;</div></div>';
+  }
+  container.innerHTML = html;
   showDiagStep('ds2');
 }
 
 function diagStep3() {
-  const sel = document.querySelector('#ds2 .diag-opt.selected');
-  if (!sel) { alert('Please select a skill focus to continue.'); return; }
-  diagAnswers.skill = sel.dataset.val;
+  var sel = document.querySelector('#ds2 .diag-opt.selected');
+  if (!sel) { showToast('Please select a skill focus to continue.'); return; }
+  diagAnswers.skill = sel.getAttribute('data-val');
   showDiagStep('ds3');
 }
 
 function diagShowResult() {
-  const sel = document.querySelector('#ds3 .diag-opt.selected');
-  if (!sel) { alert('Please select your level to continue.'); return; }
-  diagAnswers.level = sel.dataset.val;
+  var sel = document.querySelector('#ds3 .diag-opt.selected');
+  if (!sel) { showToast('Please select your level to continue.'); return; }
+  diagAnswers.level = sel.getAttribute('data-val');
 
-  // ── ROUTE ──
-  const roleRoutes = ROUTING[diagAnswers.role] || ROUTING.learner;
-  const route = roleRoutes[diagAnswers.skill] || roleRoutes.default;
-
-  const agentInfo = AGENTS[route.agent];
+  var roleRoutes = ROUTING[diagAnswers.role] || ROUTING.learner;
+  var route = roleRoutes[diagAnswers.skill] || roleRoutes.default;
+  var agentInfo = AGENTS[route.agent];
 
   document.getElementById('res-agent').textContent = route.agent;
   document.getElementById('res-role').textContent = agentInfo ? agentInfo.mission : '';
   document.getElementById('res-reason').textContent = route.reason;
 
-  // Support path tags
-  const pathEl = document.getElementById('res-path');
-  pathEl.innerHTML = route.support.map(s => \`<div class="path-tag">\${s}</div>\`).join('');
+  var pathEl = document.getElementById('res-path');
+  var pathHtml = '';
+  for (var i = 0; i < route.support.length; i++) {
+    pathHtml += '<div class="path-tag">' + route.support[i] + '</div>';
+  }
+  pathEl.innerHTML = pathHtml;
 
-  // Enter button
-  const enterBtn = document.getElementById('res-enter-btn');
-  enterBtn.textContent = \`Enter \${route.agent} →\`;
-  enterBtn.onclick = () => goScreen('agent', route.agent);
+  var enterBtn = document.getElementById('res-enter-btn');
+  enterBtn.textContent = 'Enter ' + route.agent + ' \u2192';
+  (function(ag){ enterBtn.onclick = function(){ goScreen('agent', ag); }; })(route.agent);
 
   showDiagStep('ds-result');
 }
 
 function showDiagStep(id) {
-  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  var steps = document.querySelectorAll('.diag-step');
+  for (var i = 0; i < steps.length; i++) steps[i].classList.remove('active');
+  var el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function resetDiag() {
+  diagAnswers = { role: null, skill: null, level: null };
+  var opts = document.querySelectorAll('.diag-opt');
+  for (var i = 0; i < opts.length; i++) opts[i].classList.remove('selected');
+  showDiagStep('ds1');
+}
+
+// ── NAVIGATION ──
 function goScreen(screen, agentId) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
+  var links = document.querySelectorAll('.nav-link');
+  for (var i = 0; i < links.length; i++) links[i].classList.remove('active');
 
   if (screen === 'agent' && agentId) {
     currentAgent = agentId;
-    const a = AGENTS[agentId];
+    var a = AGENTS[agentId];
     if (a) {
       document.getElementById('ap-name').textContent = a.name;
       document.getElementById('ap-mission').textContent = a.mission;
@@ -1118,15 +1131,14 @@ function goScreen(screen, agentId) {
       document.getElementById('ap-desc').textContent = a.desc;
       document.getElementById('ap-input').placeholder = a.ph;
       document.getElementById('ap-input').value = '';
-      const op = document.getElementById('ap-output');
+      var op = document.getElementById('ap-output');
       op.classList.remove('visible');
       if (typingInterval) clearInterval(typingInterval);
 
-      // Apply theme + character image
-      const hdr = document.getElementById('ap-header');
-      const charImg = document.getElementById('ap-char-img');
-      const runBtn = document.getElementById('ap-run-btn');
-      const extLink = document.getElementById('ap-ext-link');
+      var hdr = document.getElementById('ap-header');
+      var charImg = document.getElementById('ap-char-img');
+      var runBtn = document.getElementById('ap-run-btn');
+      var extLink = document.getElementById('ap-ext-link');
       hdr.className = 'agent-header';
       charImg.style.display = 'none';
       runBtn.className = 'run-btn';
@@ -1141,7 +1153,7 @@ function goScreen(screen, agentId) {
         extLink.style.display = 'inline-flex';
         extLink.href = 'https://niracademy.com/nir-academy-ai/';
         extLink.className = 'agent-ext-link nira';
-        extLink.textContent = 'Open NIRA Full Platform ↗';
+        extLink.textContent = 'Open NIRA Full Platform \u2197';
       } else if (agentId === 'NIRON') {
         hdr.classList.add('theme-niron');
         charImg.src = document.getElementById('img-niron').src;
@@ -1151,15 +1163,21 @@ function goScreen(screen, agentId) {
         extLink.style.display = 'inline-flex';
         extLink.href = 'https://niracademy.com/niron-ai/';
         extLink.className = 'agent-ext-link niron';
-        extLink.textContent = 'Open NIRON Full Platform ↗';
+        extLink.textContent = 'Open NIRON Full Platform \u2197';
       }
     }
     document.getElementById('screen-agent').classList.add('active');
   } else {
-    const el = document.getElementById('screen-' + screen);
+    var el = document.getElementById('screen-' + screen);
     if (el) el.classList.add('active');
-    const link = document.querySelector(`.nav-link[onclick*="'${screen}'"]`);
-    if (link) link.classList.add('active');
+    var navLinks = document.querySelectorAll('.nav-link');
+    for (var i = 0; i < navLinks.length; i++) {
+      var onc = navLinks[i].getAttribute('onclick') || '';
+      if (onc.indexOf("'" + screen + "'") !== -1) {
+        navLinks[i].classList.add('active');
+        break;
+      }
+    }
   }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -1169,42 +1187,38 @@ function toggleMobileNav() {
 }
 
 function selectOpt(el, step) {
-  el.closest('.diag-options').querySelectorAll('.diag-opt').forEach(o => o.classList.remove('selected'));
+  var opts = el.closest('.diag-options').querySelectorAll('.diag-opt');
+  for (var i = 0; i < opts.length; i++) opts[i].classList.remove('selected');
   el.classList.add('selected');
 }
 
-function nextStep(n) {
-  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById('ds' + n);
-  if (el) el.classList.add('active');
-}
-
-function showResult() {
-  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
-  document.getElementById('ds-result').classList.add('active');
-}
-
-function resetDiag() {
-  diagAnswers = { role: null, skill: null, level: null };
-  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.diag-opt').forEach(o => o.classList.remove('selected'));
-  document.getElementById('ds1').classList.add('active');
+function showToast(msg) {
+  var t = document.getElementById('nir-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'nir-toast';
+    t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:0.5px solid rgba(201,168,76,0.4);color:rgba(201,168,76,0.9);padding:12px 28px;font-size:13px;letter-spacing:0.08em;z-index:9999;transition:opacity 0.3s;font-family:var(--ff-body)';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  setTimeout(function(){ t.style.opacity = '0'; }, 2500);
 }
 
 function runAgent() {
-  const op = document.getElementById('ap-output');
-  const oc = document.getElementById('ap-output-content');
+  var op = document.getElementById('ap-output');
+  var oc = document.getElementById('ap-output-content');
   op.classList.add('visible');
   oc.innerHTML = '';
   if (typingInterval) clearInterval(typingInterval);
 
-  const text = OUTPUTS[currentAgent] || 'Processing complete. Output ready.';
-  let i = 0;
-  const cursor = document.createElement('span');
+  var text = OUTPUTS[currentAgent] || 'Processing complete. Output ready.';
+  var i = 0;
+  var cursor = document.createElement('span');
   cursor.className = 'cursor-blink';
   oc.appendChild(cursor);
 
-  typingInterval = setInterval(() => {
+  typingInterval = setInterval(function() {
     if (i < text.length) {
       cursor.insertAdjacentText('beforebegin', text[i]);
       i++;
@@ -1215,8 +1229,15 @@ function runAgent() {
   }, 16);
 }
 
-// Init active nav
-document.querySelector('.nav-link[onclick*="home"]').classList.add('active');
+// ── INIT ──
+(function(){
+  var links = document.querySelectorAll('.nav-link');
+  for (var i = 0; i < links.length; i++) {
+    var onc = links[i].getAttribute('onclick') || '';
+    if (onc.indexOf("'home'") !== -1) { links[i].classList.add('active'); break; }
+  }
+})();
 </script>
+
 </body>
 </html>
