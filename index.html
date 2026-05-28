@@ -170,7 +170,7 @@ button { cursor: pointer; font-family: var(--ff-body); }
   color: var(--gold-dim); margin-bottom: 16px;
 }
 .section-title {
-  font-family: var(--ff-display); font-size: clamp(32px, 4vw, 48px);
+  font-family: var(--ff-display); font-size: clamp(36px, 4.5vw, 54px);
   font-weight: 500; color: var(--white); margin-bottom: 48px;
   line-height: 1.2;
 }
@@ -197,18 +197,19 @@ button { cursor: pointer; font-family: var(--ff-body); }
 .agent-card:hover { background: var(--black3); }
 .agent-card:hover::before { opacity: 1; }
 .card-tier {
-  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--gold-dim); margin-bottom: 12px;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(201,168,76,0.55); margin-bottom: 12px;
 }
 .card-name {
-  font-family: var(--ff-display); font-size: 32px; font-weight: 600;
-  color: var(--gold); line-height: 1; margin-bottom: 6px;
+  font-family: var(--ff-display); font-size: 36px; font-weight: 600;
+  color: var(--gold); line-height: 1; margin-bottom: 8px;
+  text-shadow: 0 0 24px rgba(201,168,76,0.2);
 }
 .card-role {
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--white-30); margin-bottom: 16px;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(245,242,235,0.45); margin-bottom: 16px;
 }
-.card-desc { font-size: 13px; color: rgba(245,242,235,0.45); line-height: 1.75; }
+.card-desc { font-size: 14px; color: rgba(245,242,235,0.5); line-height: 1.8; }
 .card-arrow {
   position: absolute; bottom: 20px; right: 20px;
   font-size: 18px; color: var(--gold-dim); opacity: 0;
@@ -253,39 +254,66 @@ button { cursor: pointer; font-family: var(--ff-body); }
 }
 
 /* ─── DIAGNOSTIC ─── */
-.diag-outer { max-width: 580px; margin: 0 auto; padding: 56px 24px; }
-.diag-progress { display: flex; gap: 6px; margin-bottom: 36px; }
-.diag-dot { height: 1.5px; flex: 1; background: var(--black4); transition: background 0.35s; }
+.diag-outer { max-width: 600px; margin: 0 auto; padding: 60px 28px; }
+.diag-progress { display: flex; gap: 8px; margin-bottom: 44px; }
+.diag-dot { height: 2px; flex: 1; background: rgba(201,168,76,0.12); transition: background 0.4s; border-radius: 2px; }
 .diag-dot.done { background: var(--gold); }
-.diag-dot.active { background: var(--gold-dim); }
-.diag-step { display: none; animation: fadeIn 0.3s ease; }
+.diag-dot.active { background: rgba(201,168,76,0.5); }
+.diag-step { display: none; animation: fadeIn 0.35s ease; }
 .diag-step.active { display: block; }
 .diag-eyebrow {
-  font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
-  color: var(--gold-dim); margin-bottom: 14px;
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px; opacity: 0.7;
 }
 .diag-q {
-  font-family: var(--ff-display); font-size: clamp(28px, 4vw, 38px);
-  font-weight: 500; color: var(--white); line-height: 1.25; margin-bottom: 36px;
+  font-family: var(--ff-display); font-size: clamp(30px, 4.5vw, 44px);
+  font-weight: 500; color: var(--white); line-height: 1.2; margin-bottom: 40px;
 }
-.diag-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.diag-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
 .diag-opt {
-  border: 0.5px solid var(--border); background: var(--black2);
-  padding: 18px 20px; cursor: pointer;
+  border: 1px solid rgba(201,168,76,0.18); background: #0D0D0D;
+  padding: 20px 22px; cursor: pointer;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  transition: all 0.18s;
+  transition: all 0.22s; position: relative; overflow: hidden;
 }
-.diag-opt:hover { border-color: var(--gold-dim); background: var(--black3); }
-.diag-opt.selected { border-color: var(--gold); background: rgba(201,168,76,0.05); }
-.opt-text .opt-label { font-size: 14px; color: var(--white); letter-spacing: 0.03em; }
-.opt-text .opt-sub { font-size: 11px; color: var(--white-30); margin-top: 3px; }
+.diag-opt::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background: var(--gold); transform: scaleY(0); transition: transform 0.22s; transform-origin: bottom;
+}
+.diag-opt:hover { border-color: rgba(201,168,76,0.45); background: #111; }
+.diag-opt:hover::before { transform: scaleY(1); }
+.diag-opt.selected { border-color: var(--gold); background: rgba(201,168,76,0.07); }
+.diag-opt.selected::before { transform: scaleY(1); }
+.opt-text .opt-label { font-size: 16px; color: var(--white); letter-spacing: 0.02em; font-weight: 400; }
+.opt-text .opt-sub { font-size: 13px; color: rgba(245,242,235,0.45); margin-top: 4px; }
 .opt-check {
-  width: 20px; height: 20px; flex-shrink: 0;
-  border: 0.5px solid var(--gold-dim);
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.18s; font-size: 11px; color: transparent;
+  width: 22px; height: 22px; flex-shrink: 0;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  transition: all 0.22s; font-size: 12px; color: transparent; font-weight: 600;
 }
-.diag-opt.selected .opt-check { background: var(--gold); border-color: var(--gold); color: var(--black); font-weight: 600; }
+.diag-opt.selected .opt-check {
+  background: var(--gold); border-color: var(--gold);
+  color: #000; font-weight: 700;
+  box-shadow: 0 0 12px rgba(201,168,76,0.4);
+}
+/* Result pulse animation */
+.diag-result-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 28px; padding-bottom: 20px;
+  border-bottom: 0.5px solid var(--border);
+}
+.diag-result-pulse {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 0 rgba(201,168,76,0.6);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(201,168,76,0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(201,168,76,0); }
+  100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+}
 
 /* ─── RESULT ─── */
 .result-card {
@@ -296,14 +324,14 @@ button { cursor: pointer; font-family: var(--ff-body); }
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
 }
-.result-agent { font-family: var(--ff-display); font-size: 56px; font-weight: 600; color: var(--gold); line-height: 1; }
-.result-role { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-30); margin: 8px 0 16px; }
-.result-reason { font-size: 13px; color: var(--white-60); line-height: 1.85; }
-.result-path { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.result-agent { font-family: var(--ff-display); font-size: clamp(52px,8vw,72px); font-weight: 600; color: var(--gold); line-height: 1; letter-spacing: 0.02em; text-shadow: 0 0 40px rgba(201,168,76,0.25); }
+.result-role { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(201,168,76,0.6); margin: 10px 0 18px; }
+.result-reason { font-size: 15px; color: rgba(245,242,235,0.75); line-height: 1.9; }
+.result-path { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
 .path-tag {
-  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--gold-dim); border: 0.5px solid rgba(201,168,76,0.2);
-  padding: 5px 14px;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold); border: 0.5px solid rgba(201,168,76,0.3);
+  padding: 6px 16px; background: rgba(201,168,76,0.05);
 }
 
 /* ─── AGENT PAGE ─── */
@@ -316,13 +344,14 @@ button { cursor: pointer; font-family: var(--ff-body); }
   background: linear-gradient(90deg, transparent, var(--gold-dim) 50%, transparent);
 }
 .agent-page-name {
-  font-family: var(--ff-display); font-size: clamp(48px, 8vw, 72px);
-  font-weight: 600; color: var(--gold); line-height: 1; margin-bottom: 8px;
+  font-family: var(--ff-display); font-size: clamp(52px, 8vw, 80px);
+  font-weight: 600; color: var(--gold); line-height: 1; margin-bottom: 10px;
+  text-shadow: 0 0 50px rgba(201,168,76,0.2);
 }
 .agent-page-mission {
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-30);
+  font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(245,242,235,0.45);
 }
-.agent-page-desc { font-size: 13px; color: var(--white-60); line-height: 1.85; margin-top: 14px; max-width: 540px; }
+.agent-page-desc { font-size: 15px; color: rgba(245,242,235,0.7); line-height: 1.9; margin-top: 16px; max-width: 560px; }
 .agent-body { padding: 36px 40px; max-width: 760px; }
 .input-label {
   font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase;
@@ -489,12 +518,15 @@ body::before {
   pointer-events:none; z-index:0;
 }
 /* Font size fixes - ensure readable */
-.opt-text .opt-label { font-size: 15px; }
-.opt-text .opt-sub { font-size: 12px; }
-.card-desc { font-size: 13px; line-height: 1.8; }
-.agent-page-desc { font-size: 14px; }
-.output-content { font-size: 14px; }
-.run-hint { font-size: 12px; }
+.opt-text .opt-label { font-size: 16px; }
+.opt-text .opt-sub { font-size: 13px; }
+.card-desc { font-size: 14px; line-height: 1.82; }
+.agent-page-desc { font-size: 15px; }
+.output-content { font-size: 15px; line-height: 2; }
+.run-hint { font-size: 13px; }
+.input-label { font-size: 10px; }
+.agent-textarea { font-size: 15px; }
+.stat-label { font-size: 11px; letter-spacing: 0.18em; }
 @media (max-width: 768px) {
   .agent-char-img { width: 140px; height: 170px; }
   .agent-header-inner { gap: 20px; }
@@ -790,74 +822,82 @@ body::before {
 <!-- ═══ DIAGNOSTIC ═══ -->
 <div id="screen-diag" class="screen">
   <div class="diag-outer">
+
+    <!-- STEP 1: WHO ARE YOU -->
     <div id="ds1" class="diag-step active">
-      <div class="diag-progress"><div class="diag-dot active"></div><div class="diag-dot"></div><div class="diag-dot"></div><div class="diag-dot"></div></div>
-      <div class="diag-eyebrow">Step 1 of 4 · Learning Goal</div>
-      <div class="diag-q">What is your primary objective?</div>
+      <div class="diag-progress"><div class="diag-dot active"></div><div class="diag-dot"></div><div class="diag-dot"></div></div>
+      <div class="diag-eyebrow">Step 1 of 3 · Your Role</div>
+      <div class="diag-q">Who are you?</div>
       <div class="diag-options">
-        <div class="diag-opt" onclick="selectOpt(this,1)"><div class="opt-text"><div class="opt-label">IELTS Preparation</div><div class="opt-sub">Target band score improvement</div></div><div class="opt-check">✓</div></div>
-        <div class="diag-opt" onclick="selectOpt(this,1)"><div class="opt-text"><div class="opt-label">Academic English</div><div class="opt-sub">University writing &amp; research skills</div></div><div class="opt-check">✓</div></div>
-        <div class="diag-opt" onclick="selectOpt(this,1)"><div class="opt-text"><div class="opt-label">Professional ELT</div><div class="opt-sub">Teaching methodology &amp; certification</div></div><div class="opt-check">✓</div></div>
-        <div class="diag-opt" onclick="selectOpt(this,1)"><div class="opt-text"><div class="opt-label">General English</div><div class="opt-sub">Communicative competence development</div></div><div class="opt-check">✓</div></div>
-      </div>
-      <button class="btn-primary" onclick="nextStep(2)" style="width:100%">Continue →</button>
-    </div>
-
-    <div id="ds2" class="diag-step">
-      <div class="diag-progress"><div class="diag-dot done"></div><div class="diag-dot active"></div><div class="diag-dot"></div><div class="diag-dot"></div></div>
-      <div class="diag-eyebrow">Step 2 of 4 · Current Level</div>
-      <div class="diag-q">How would you assess your current proficiency?</div>
-      <div class="diag-options">
-        <div class="diag-opt" onclick="selectOpt(this,2)"><div class="opt-text"><div class="opt-label">Foundation · A1–A2</div><div class="opt-sub">Basic communication, limited vocabulary</div></div><div class="opt-check">✓</div></div>
-        <div class="diag-opt" onclick="selectOpt(this,2)"><div class="opt-text"><div class="opt-label">Intermediate · B1–B2</div><div class="opt-sub">Independent user, expanding fluency</div></div><div class="opt-check">✓</div></div>
-        <div class="diag-opt" onclick="selectOpt(this,2)"><div class="opt-text"><div class="opt-label">Advanced · C1–C2</div><div class="opt-sub">Proficient, near-native competence</div></div><div class="opt-check">✓</div></div>
-      </div>
-      <button class="btn-primary" onclick="nextStep(3)" style="width:100%">Continue →</button>
-    </div>
-
-    <div id="ds3" class="diag-step">
-      <div class="diag-progress"><div class="diag-dot done"></div><div class="diag-dot done"></div><div class="diag-dot active"></div><div class="diag-dot"></div></div>
-      <div class="diag-eyebrow">Step 3 of 4 · Skill Priority</div>
-      <div class="diag-q">Which skill requires focused attention?</div>
-      <div class="diag-options">
-        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Writing</div><div class="opt-sub">Essays, task responses, academic writing</div></div><div class="opt-check">✓</div></div>
-        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Speaking</div><div class="opt-sub">Pronunciation, fluency, discourse</div></div><div class="opt-check">✓</div></div>
-        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Reading</div><div class="opt-sub">Comprehension, speed, inference</div></div><div class="opt-check">✓</div></div>
-        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Listening</div><div class="opt-sub">Audio comprehension, note-taking</div></div><div class="opt-check">✓</div></div>
-        <div class="diag-opt" onclick="selectOpt(this,3)"><div class="opt-text"><div class="opt-label">Grammar &amp; Vocabulary</div><div class="opt-sub">Accuracy, lexical range, register</div></div><div class="opt-check">✓</div></div>
-      </div>
-      <button class="btn-primary" onclick="nextStep(4)" style="width:100%">Continue →</button>
-    </div>
-
-    <div id="ds4" class="diag-step">
-      <div class="diag-progress"><div class="diag-dot done"></div><div class="diag-dot done"></div><div class="diag-dot done"></div><div class="diag-dot active"></div></div>
-      <div class="diag-eyebrow">Step 4 of 4 · Optional Sample</div>
-      <div class="diag-q">Provide a writing or goal sample <span style="color:var(--white-30);font-size:24px;font-family:var(--ff-display)">(optional)</span></div>
-      <textarea class="agent-textarea" id="diag-sample" placeholder="e.g. I need to reach IELTS Band 7. My main weakness is task coherence and complex sentence structures..." style="margin-bottom:20px"></textarea>
-      <button class="btn-primary" onclick="showResult()" style="width:100%">Generate Learning Path →</button>
-    </div>
-
-    <div id="ds-result" class="diag-step">
-      <div style="font-size:10px;letter-spacing:0.26em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:28px">Diagnostic Complete · Routing Active</div>
-      <div class="result-card">
-        <div style="font-size:9px;letter-spacing:0.22em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:14px">Recommended Primary Agent</div>
-        <div class="result-agent">NIRIEL</div>
-        <div class="result-role">IELTS Preparation System</div>
-        <div class="result-reason">Based on your diagnostic profile, NIRIEL is optimally configured for your objectives. It combines task-specific strategy with structured performance modelling and targeted feedback loops for band-score improvement.</div>
-        <div class="result-path">
-          <div class="path-tag">NIRIEL → Primary</div>
-          <div class="path-tag">NIRVE → Writing</div>
-          <div class="path-tag">NIREV → Evaluation</div>
+        <div class="diag-opt" data-val="learner" onclick="selectOpt(this,1)">
+          <div class="opt-text"><div class="opt-label">English Learner</div><div class="opt-sub">I want to improve my English skills</div></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="diag-opt" data-val="ielts" onclick="selectOpt(this,1)">
+          <div class="opt-text"><div class="opt-label">IELTS Candidate</div><div class="opt-sub">I am preparing for IELTS exam</div></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="diag-opt" data-val="teacher" onclick="selectOpt(this,1)">
+          <div class="opt-text"><div class="opt-label">Teacher / ELT Professional</div><div class="opt-sub">I teach English or work in education</div></div>
+          <div class="opt-check">✓</div>
         </div>
       </div>
+      <button class="btn-primary" onclick="diagStep2()" style="width:100%;font-size:15px;padding:16px">Continue →</button>
+    </div>
+
+    <!-- STEP 2: SKILL FOCUS -->
+    <div id="ds2" class="diag-step">
+      <div class="diag-progress"><div class="diag-dot done"></div><div class="diag-dot active"></div><div class="diag-dot"></div></div>
+      <div class="diag-eyebrow">Step 2 of 3 · Skill Focus</div>
+      <div class="diag-q">Which skill do you need most?</div>
+      <div class="diag-options" id="ds2-opts"></div>
+      <button class="btn-primary" onclick="diagStep3()" style="width:100%;font-size:15px;padding:16px">Continue →</button>
+    </div>
+
+    <!-- STEP 3: LEVEL -->
+    <div id="ds3" class="diag-step">
+      <div class="diag-progress"><div class="diag-dot done"></div><div class="diag-dot done"></div><div class="diag-dot active"></div></div>
+      <div class="diag-eyebrow">Step 3 of 3 · Your Level</div>
+      <div class="diag-q">What is your current English level?</div>
+      <div class="diag-options">
+        <div class="diag-opt" data-val="beginner" onclick="selectOpt(this,3)">
+          <div class="opt-text"><div class="opt-label">Beginner · A1–A2</div><div class="opt-sub">Basic communication and vocabulary</div></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="diag-opt" data-val="intermediate" onclick="selectOpt(this,3)">
+          <div class="opt-text"><div class="opt-label">Intermediate · B1–B2</div><div class="opt-sub">Can communicate, expanding fluency</div></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="diag-opt" data-val="advanced" onclick="selectOpt(this,3)">
+          <div class="opt-text"><div class="opt-label">Advanced · C1–C2</div><div class="opt-sub">Proficient, near-native level</div></div>
+          <div class="opt-check">✓</div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="diagShowResult()" style="width:100%;font-size:15px;padding:16px">Analyse &amp; Route →</button>
+    </div>
+
+    <!-- RESULT -->
+    <div id="ds-result" class="diag-step">
+      <div class="diag-result-header">
+        <div class="diag-result-pulse"></div>
+        <div style="font-size:11px;letter-spacing:0.28em;color:var(--gold);text-transform:uppercase">NIR AI · Routing Complete</div>
+      </div>
+      <div class="result-card" id="result-card-main">
+        <div style="font-size:10px;letter-spacing:0.24em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:16px">Primary Agent Assigned</div>
+        <div id="res-agent" class="result-agent">NIRIEL</div>
+        <div id="res-role" class="result-role">IELTS Preparation System</div>
+        <div id="res-reason" class="result-reason"></div>
+        <div id="res-path" class="result-path"></div>
+      </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <button class="btn-primary" onclick="goScreen('agent','NIRIEL')" style="flex:1;min-width:180px">Enter NIRIEL →</button>
-        <button class="btn-secondary" onclick="goScreen('map')" style="flex:1;min-width:180px">View Ecosystem</button>
+        <button id="res-enter-btn" class="btn-primary" style="flex:1;min-width:180px;font-size:14px;padding:15px">Enter Agent →</button>
+        <button class="btn-secondary" onclick="goScreen('map')" style="flex:1;min-width:180px;font-size:14px;padding:15px">View Ecosystem</button>
       </div>
       <div style="margin-top:20px">
-        <button onclick="resetDiag()" style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--white-30);background:none;border:none;cursor:pointer;font-family:var(--ff-body)">← Restart Diagnostic</button>
+        <button onclick="resetDiag()" style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--white-30);background:none;border:none;cursor:pointer;font-family:var(--ff-body)">← Restart Diagnostic</button>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -957,6 +997,112 @@ const OUTPUTS = {
 
 let currentAgent = 'NIRIEL';
 let typingInterval = null;
+let diagAnswers = { role: null, skill: null, level: null };
+
+// ── ROUTING TABLE ──
+const ROUTING = {
+  // role=teacher → always NIRA first
+  teacher: {
+    default: { agent:'NIRA', reason:'As an ELT professional, NIRA is your primary intelligence layer. It provides pedagogical guidance, lesson design frameworks, and teaching methodology tailored to professional practice.', support:['NIRON → Grammar Reference','NIREV → Assessment Design'] }
+  },
+  // role=ielts → always NIRIEL first, then skill-specific support
+  ielts: {
+    writing:  { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Writing as the priority focus. Task 1 and Task 2 coaching, band-descriptor alignment, and coherence feedback are all integrated.', support:['NIRVE → Writing Practice','NIREV → Score Tracking'] },
+    speaking: { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Speaking as the priority focus. Fluency drills, Part 1/2/3 strategies, and pronunciation coaching are fully structured.', support:['NIRVO → Speaking Practice','NIREV → Score Tracking'] },
+    reading:  { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Reading as the priority focus. Skimming, scanning, and inference strategies are calibrated to your target band.', support:['NIRIX → Reading Practice','NIREV → Score Tracking'] },
+    listening:{ agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Listening as the priority focus. Section-by-section strategy, note-taking, and prediction techniques are all covered.', support:['NIRAL → Listening Practice','NIREV → Score Tracking'] },
+    grammar:  { agent:'NIRIEL', reason:'NIRIEL leads your IELTS preparation with Grammar & Vocabulary as the priority focus. Lexical range, accuracy, and register are critical to your band improvement.', support:['NIRON → Grammar Intelligence','NIREV → Score Tracking'] },
+    default:  { agent:'NIRIEL', reason:'NIRIEL is your complete IELTS preparation engine. All four skills — Listening, Reading, Writing, Speaking — are covered with structured band-targeted strategies.', support:['NIRVE → Writing','NIRVO → Speaking','NIREV → Score Tracking'] }
+  },
+  // role=learner → skill maps directly to specialist agent
+  learner: {
+    writing:  { agent:'NIRVE', reason:'NIRVE is your Writing Assistant. It corrects your writing, improves structure and coherence, and provides clear feedback for stronger English expression at every level.', support:['NIRON → Grammar Support','NIREV → Progress Tracking'] },
+    speaking: { agent:'NIRVO', reason:'NIRVO is your Speaking Practice agent. It improves fluency, pronunciation, and real-life conversation skills through structured interactive practice.', support:['NIRA → Lesson Guidance','NIREV → Progress Tracking'] },
+    reading:  { agent:'NIRIX', reason:'NIRIX is your Reading Assistant. It enhances comprehension, text analysis, and understanding of meaning in context through targeted exercises.', support:['NIRON → Vocabulary Building','NIREV → Progress Tracking'] },
+    listening:{ agent:'NIRAL', reason:'NIRAL is your Listening Practice agent. It trains listening comprehension using audio-based exercises and real spoken language exposure.', support:['NIRVO → Speaking Connection','NIREV → Progress Tracking'] },
+    grammar:  { agent:'NIRON', reason:'NIRON is your Grammar & Vocabulary Intelligence. It analyses your language patterns, identifies weaknesses, and builds precision in grammar and lexical range.', support:['NIRVE → Writing Application','NIREV → Progress Tracking'] },
+    default:  { agent:'NIRA', reason:'NIRA is your Teacher AI — your intelligent starting point. It analyses your profile and routes you to the most relevant specialist agent for your learning goals.', support:['NIRON → Grammar','NIRVE → Writing','NIREV → Assessment'] }
+  }
+};
+
+const SKILL_OPTIONS = {
+  learner: [
+    { val:'writing',   label:'Writing',              sub:'Improve essays, structure, and written expression' },
+    { val:'speaking',  label:'Speaking',              sub:'Build fluency, pronunciation, and conversation skills' },
+    { val:'reading',   label:'Reading',               sub:'Enhance comprehension and text analysis' },
+    { val:'listening', label:'Listening',             sub:'Train listening with audio exercises' },
+    { val:'grammar',   label:'Grammar & Vocabulary',  sub:'Build accuracy and lexical range' },
+  ],
+  ielts: [
+    { val:'writing',   label:'IELTS Writing',         sub:'Task 1 & Task 2 strategies and feedback' },
+    { val:'speaking',  label:'IELTS Speaking',         sub:'Parts 1, 2 & 3 fluency and pronunciation' },
+    { val:'reading',   label:'IELTS Reading',          sub:'Skimming, scanning and inference strategies' },
+    { val:'listening', label:'IELTS Listening',        sub:'All 4 sections, note-taking strategies' },
+    { val:'grammar',   label:'Grammar & Vocabulary',   sub:'Lexical range and grammatical accuracy' },
+  ],
+  teacher: [
+    { val:'pedagogy',  label:'Teaching Methodology',   sub:'Lesson design, frameworks, and best practices' },
+    { val:'grammar',   label:'Grammar Instruction',     sub:'Teaching grammar and vocabulary effectively' },
+    { val:'assessment',label:'Assessment & Testing',    sub:'Creating tests and tracking learner progress' },
+  ]
+};
+
+function diagStep2() {
+  const sel = document.querySelector('#ds1 .diag-opt.selected');
+  if (!sel) { alert('Please select an option to continue.'); return; }
+  diagAnswers.role = sel.dataset.val;
+
+  // Build skill options dynamically
+  const opts = SKILL_OPTIONS[diagAnswers.role] || SKILL_OPTIONS.learner;
+  const container = document.getElementById('ds2-opts');
+  container.innerHTML = opts.map(o =>
+    \`<div class="diag-opt" data-val="\${o.val}" onclick="selectOpt(this,2)">
+      <div class="opt-text"><div class="opt-label">\${o.label}</div><div class="opt-sub">\${o.sub}</div></div>
+      <div class="opt-check">✓</div>
+    </div>\`
+  ).join('');
+
+  showDiagStep('ds2');
+}
+
+function diagStep3() {
+  const sel = document.querySelector('#ds2 .diag-opt.selected');
+  if (!sel) { alert('Please select a skill focus to continue.'); return; }
+  diagAnswers.skill = sel.dataset.val;
+  showDiagStep('ds3');
+}
+
+function diagShowResult() {
+  const sel = document.querySelector('#ds3 .diag-opt.selected');
+  if (!sel) { alert('Please select your level to continue.'); return; }
+  diagAnswers.level = sel.dataset.val;
+
+  // ── ROUTE ──
+  const roleRoutes = ROUTING[diagAnswers.role] || ROUTING.learner;
+  const route = roleRoutes[diagAnswers.skill] || roleRoutes.default;
+
+  const agentInfo = AGENTS[route.agent];
+
+  document.getElementById('res-agent').textContent = route.agent;
+  document.getElementById('res-role').textContent = agentInfo ? agentInfo.mission : '';
+  document.getElementById('res-reason').textContent = route.reason;
+
+  // Support path tags
+  const pathEl = document.getElementById('res-path');
+  pathEl.innerHTML = route.support.map(s => \`<div class="path-tag">\${s}</div>\`).join('');
+
+  // Enter button
+  const enterBtn = document.getElementById('res-enter-btn');
+  enterBtn.textContent = \`Enter \${route.agent} →\`;
+  enterBtn.onclick = () => goScreen('agent', route.agent);
+
+  showDiagStep('ds-result');
+}
+
+function showDiagStep(id) {
+  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
 function goScreen(screen, agentId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1039,6 +1185,7 @@ function showResult() {
 }
 
 function resetDiag() {
+  diagAnswers = { role: null, skill: null, level: null };
   document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.diag-opt').forEach(o => o.classList.remove('selected'));
   document.getElementById('ds1').classList.add('active');
